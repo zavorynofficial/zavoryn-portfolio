@@ -1,92 +1,55 @@
 (() => {
   const menu = document.querySelector(".menu-toggle");
   const nav = document.querySelector(".nav");
-  if (menu && nav) {
-    menu.addEventListener("click", () => {
-      const open = nav.classList.toggle("open");
-      menu.setAttribute("aria-expanded", String(open));
-    });
-    nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => {
-      nav.classList.remove("open");
-      menu.setAttribute("aria-expanded", "false");
-    }));
-  }
-
+  if (menu && nav) { menu.addEventListener("click", () => { const open = nav.classList.toggle("open"); menu.setAttribute("aria-expanded", String(open)); }); nav.querySelectorAll("a").forEach(a => a.addEventListener("click", () => { nav.classList.remove("open"); menu.setAttribute("aria-expanded", "false"); })); }
   document.querySelectorAll("#year").forEach(el => el.textContent = new Date().getFullYear());
-
   const progress = document.querySelector(".progress");
-  const updateProgress = () => {
-    if (!progress) return;
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    progress.style.width = max > 0 ? `${(window.scrollY / max) * 100}%` : "0%";
-  };
-  window.addEventListener("scroll", updateProgress, {passive:true});
-  updateProgress();
+  const updateProgress = () => { if (!progress) return; const max=document.documentElement.scrollHeight-window.innerHeight; progress.style.width=max>0?`${(window.scrollY/max)*100}%`:"0%"; };
+  window.addEventListener("scroll",updateProgress,{passive:true}); updateProgress();
+  const observer = new IntersectionObserver(entries => entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add("in"); observer.unobserve(entry.target); }}),{threshold:.08});
+  document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("in");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {threshold: .08});
-  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+  // Portfolio tabs
+  const tabs=document.querySelectorAll(".portfolio-tab"), panels=document.querySelectorAll(".portfolio-panel");
+  if(tabs.length){ const activate=(key,updateHash=true)=>{ tabs.forEach(t=>t.classList.toggle("active",t.dataset.portfolioTab===key)); panels.forEach(p=>p.classList.toggle("active",p.dataset.panel===key)); if(updateHash) history.replaceState(null,"",`#${key}`); window.dispatchEvent(new CustomEvent("zavoryn:portfolio-tab",{detail:key})); }; tabs.forEach(t=>t.addEventListener("click",()=>activate(t.dataset.portfolioTab))); const initial=(location.hash||"#web").slice(1); activate([...tabs].some(t=>t.dataset.portfolioTab===initial)?initial:"web",false); }
 
-  const filters = document.querySelectorAll(".filter");
-  const items = document.querySelectorAll(".portfolio-item");
-  if (filters.length && items.length) {
-    filters.forEach(btn => btn.addEventListener("click", () => {
-      filters.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      const filter = btn.dataset.filter;
-      items.forEach(item => {
-        const show = filter === "all" || item.dataset.category.split(" ").includes(filter);
-        item.classList.toggle("hidden", !show);
-      });
-    }));
+  // Contact form
+  const form=document.querySelector("#contactForm");
+  if(form){ form.addEventListener("submit",e=>{ e.preventDefault(); const data=new FormData(form); const name=String(data.get("name")||"").trim(), business=String(data.get("business")||"").trim(), email=String(data.get("email")||"").trim(), country=String(data.get("country")||"").trim(), service=String(data.get("service")||"").trim(), timeline=String(data.get("timeline")||"").trim(), message=String(data.get("message")||"").trim(); if(!name||!email||!service||!message){form.reportValidity();return;} const subject=encodeURIComponent(`Project enquiry — ${business||name}`); const body=encodeURIComponent(`Hello Zavoryn,\n\nI'd like to discuss a project.\n\nName: ${name}\nBusiness: ${business||"Not provided"}\nEmail: ${email}\nCountry: ${country||"Not provided"}\nService: ${service}\nPreferred timeline: ${timeline||"Not provided"}\n\nProject details:\n${message}\n\nSent from the Zavoryn website.`); window.location.href=`mailto:zavoryn@outlook.com?subject=${subject}&body=${body}`; const success=form.querySelector(".form-success"); if(success) success.hidden=false; }); }
+
+  const cfg=window.ZAVORYN_PORTFOLIO;
+  if(!cfg) return;
+  const imageExt=/\.(png|jpe?g|webp|gif|svg)$/i;
+  const apiBase=`https://api.github.com/repos/${cfg.repo.owner}/${cfg.repo.name}/contents/`;
+  const rawBase=`https://raw.githubusercontent.com/${cfg.repo.owner}/${cfg.repo.name}/${cfg.repo.branch}/`;
+  const cacheKey=path=>`zavoryn-catalog:${cfg.repo.owner}/${cfg.repo.name}/${path}`;
+  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;", "'":"&#039;"}[c]));
+  const titleFromFilename=name=>name.replace(/\.[^.]+$/,'').replace(/[-_]+/g,' ').replace(/\b\w/g,m=>m.toUpperCase());
+  const icon=(kind)=>({web:'↗',brand:'◇',social:'◎',post:'▣',ai:'✦'}[kind]||'•');
+
+  async function listDir(path){
+    const key=cacheKey(path); try{ const cached=sessionStorage.getItem(key); if(cached) return JSON.parse(cached); }catch(e){}
+    const res=await fetch(apiBase+path,{headers:{Accept:'application/vnd.github+json'}}); if(!res.ok) throw new Error(`GitHub catalog request failed: ${res.status}`); const data=await res.json(); try{sessionStorage.setItem(key,JSON.stringify(data));}catch(e){} return data;
   }
+  async function walkImages(path){ const entries=await listDir(path); let out=[]; for(const item of entries){ if(item.type==='file' && imageExt.test(item.name)) out.push({name:item.name,url:item.download_url||rawBase+item.path, path:item.path}); else if(item.type==='dir' && !item.name.startsWith('.')){ try{out=out.concat(await walkImages(item.path));}catch(e){} } } return out; }
+  function emptyState(message,action=''){ return `<div class="catalog-empty"><div class="empty-icon">＋</div><strong>${esc(message)}</strong><span>${action}</span></div>`; }
+  function imageCard(item, index, kind){ const t=titleFromFilename(item.name); return `<button class="image-card reveal" type="button" data-lightbox-src="${esc(item.url)}" data-lightbox-title="${esc(t)}"><div class="image-card-media"><img src="${esc(item.url)}" alt="${esc(t)}" loading="lazy"><span class="image-card-index">${String(index+1).padStart(2,'0')}</span><span class="image-card-open">↗</span></div><div class="image-card-meta"><strong>${esc(t)}</strong><span>${esc(kind)}</span></div></button>`; }
+  function renderImages(target,items,kind){ if(!target)return; target.innerHTML=items.length?items.map((x,i)=>imageCard(x,i,kind)).join(''):emptyState('No work uploaded yet.',`Add images to the matching GitHub folder and they will appear here.`); target.querySelectorAll('.reveal').forEach(el=>observer.observe(el)); bindLightbox(); }
 
-  const form = document.querySelector("#contactForm");
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const data = new FormData(form);
-      const name = String(data.get("name") || "").trim();
-      const business = String(data.get("business") || "").trim();
-      const email = String(data.get("email") || "").trim();
-      const country = String(data.get("country") || "").trim();
-      const service = String(data.get("service") || "").trim();
-      const timeline = String(data.get("timeline") || "").trim();
-      const message = String(data.get("message") || "").trim();
+  function renderWebsites(){ const el=document.querySelector('#websiteCatalog'); if(!el)return; el.innerHTML=cfg.websites.map((w,i)=>`<a class="website-card reveal" href="${esc(w.url)}"><div class="website-cover"><img src="${esc(w.cover)}" alt="${esc(w.title)} cover" loading="lazy"><span class="website-number">${String(i+1).padStart(2,'0')}</span><span class="website-arrow">↗</span><span class="concept-badge">${esc(w.label)}</span></div><div class="website-card-meta"><div><span>${esc(w.category)}</span><h3>${esc(w.title)}</h3><p>${esc(w.description)}</p></div><b>View website <span>↗</span></b></div></a>`).join(''); el.querySelectorAll('.reveal').forEach(x=>observer.observe(x)); }
 
-      if (!name || !email || !service || !message) {
-        form.reportValidity();
-        return;
-      }
+  function bindLightbox(){ document.querySelectorAll('[data-lightbox-src]').forEach(card=>{ if(card.dataset.bound)return; card.dataset.bound='1'; card.addEventListener('click',()=>openLightbox(card.dataset.lightboxSrc,card.dataset.lightboxTitle)); }); }
+  let lightbox; function openLightbox(src,title){ if(!lightbox){ lightbox=document.createElement('div'); lightbox.className='lightbox'; lightbox.innerHTML=`<div class="lightbox-backdrop"></div><div class="lightbox-dialog" role="dialog" aria-modal="true"><button class="lightbox-close" aria-label="Close">×</button><img alt=""><div class="lightbox-caption"></div></div>`; document.body.appendChild(lightbox); lightbox.querySelector('.lightbox-backdrop').onclick=closeLightbox; lightbox.querySelector('.lightbox-close').onclick=closeLightbox; } lightbox.querySelector('img').src=src; lightbox.querySelector('img').alt=title||''; lightbox.querySelector('.lightbox-caption').textContent=title||''; lightbox.classList.add('open'); document.body.classList.add('no-scroll'); } function closeLightbox(){if(lightbox){lightbox.classList.remove('open');document.body.classList.remove('no-scroll');}} document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
 
-      const subject = encodeURIComponent(`Project enquiry — ${business || name}`);
-      const body = encodeURIComponent(
-`Hello Zavoryn,
+  async function loadBrand(){ const row=document.querySelector('#brandSubcats'), target=document.querySelector('#brandCatalog'); if(!row||!target)return; row.innerHTML=cfg.brandCategories.map((c,i)=>`<button class="subcat ${i===0?'active':''}" data-brand-folder="${esc(c.folder)}">${icon('brand')} ${esc(c.label)} <span>↗</span></button>`).join(''); const load=async(folder)=>{target.innerHTML=emptyState('Loading catalogue…',''); try{renderImages(target,await walkImages(folder),'Brand design');}catch(e){target.innerHTML=emptyState('Catalogue unavailable right now.','If you are on GitHub Pages, check that the folder exists in the repository.');}}; row.querySelectorAll('.subcat').forEach(b=>b.addEventListener('click',()=>{row.querySelectorAll('.subcat').forEach(x=>x.classList.remove('active'));b.classList.add('active');load(b.dataset.brandFolder);})); load(cfg.brandCategories[0].folder); }
 
-I'd like to discuss a project.
+  async function loadSimple(folder,targetId,kind){ const target=document.querySelector(targetId); if(!target)return; target.innerHTML=emptyState('Loading catalogue…',''); try{renderImages(target,await walkImages(folder),kind);}catch(e){target.innerHTML=emptyState('Catalogue unavailable right now.','Check the GitHub folder path and make sure the repository is public.');} }
 
-Name: ${name}
-Business: ${business || "Not provided"}
-Email: ${email}
-Country: ${country || "Not provided"}
-Service: ${service}
-Preferred timeline: ${timeline || "Not provided"}
+  async function loadSocial(){ const target=document.querySelector('#socialCatalog'); if(!target)return; target.innerHTML=emptyState('Loading brands…',''); try{ const entries=await listDir(cfg.folders.social); const dirs=entries.filter(x=>x.type==='dir'&&!x.name.startsWith('.')); if(!dirs.length){target.innerHTML=emptyState('No managed brands added yet.','Create one folder per brand inside assets/img/social-media-management/.');return;} const cards=[]; for(const d of dirs){ let imgs=[]; try{imgs=await walkImages(d.path);}catch(e){} const cover=imgs[0]?.url||''; const name=titleFromFilename(d.name); cards.push(`<a class="brand-work-card reveal" href="social-brand.html?brand=${encodeURIComponent(d.name)}"><div class="brand-work-cover">${cover?`<img src="${esc(cover)}" alt="${esc(name)} cover" loading="lazy">`:`<div class="brand-cover-fallback"><span>${icon('social')}</span></div>`}<span class="brand-work-arrow">↗</span><span class="brand-work-count">${imgs.length} assets</span></div><div class="brand-work-meta"><span>Social media management</span><h3>${esc(name)}</h3><p>Brand content, management and social presence showcased in one case view.</p><b>View brand work ↗</b></div></a>`); } target.innerHTML=cards.join(''); target.querySelectorAll('.reveal').forEach(x=>observer.observe(x)); }catch(e){target.innerHTML=emptyState('Social catalogue unavailable.','Check the GitHub folder path.');} }
 
-Project details:
-${message}
+  async function loadAI(){ const target=document.querySelector('#aiCatalog'); if(!target)return; target.innerHTML=emptyState('Loading workflows…',''); try{ const entries=await listDir(cfg.folders.ai); const dirs=entries.filter(x=>x.type==='dir'); const files=entries.filter(x=>x.type==='file'&&imageExt.test(x.name)); let cards=[]; for(const d of dirs){let imgs=[];try{imgs=await walkImages(d.path)}catch(e){} const cover=imgs[0]?.url; cards.push(`<a class="automation-card reveal" href="social-brand.html?type=automation&item=${encodeURIComponent(d.name)}"><div class="automation-cover">${cover?`<img src="${esc(cover)}" alt="${esc(d.name)}" loading="lazy">`:`<div class="automation-fallback">✦</div>`}<span>AI / AUTOMATION</span></div><div><h3>${esc(titleFromFilename(d.name))}</h3><p>Workflow, integration or AI-assisted system showcase.</p><b>View workflow ↗</b></div></a>`);} if(files.length)cards.push(...files.map((f,i)=>`<button class="automation-card reveal" type="button" data-lightbox-src="${esc(f.download_url||rawBase+f.path)}" data-lightbox-title="${esc(titleFromFilename(f.name))}"><div class="automation-cover"><img src="${esc(f.download_url||rawBase+f.path)}" alt="${esc(titleFromFilename(f.name))}" loading="lazy"><span>AI / AUTOMATION</span></div><div><h3>${esc(titleFromFilename(f.name))}</h3><p>AI workflow or automation visual.</p><b>Open preview ↗</b></div></button>`)); target.innerHTML=cards.length?cards.join(''):emptyState('No AI or automation work added yet.','Create a folder or upload a cover image inside assets/img/ai-automation/.'); target.querySelectorAll('.reveal').forEach(x=>observer.observe(x)); bindLightbox(); }catch(e){target.innerHTML=emptyState('AI catalogue unavailable.','Check the GitHub folder path.');} }
 
-Sent from the Zavoryn website.`
-      );
+  async function loadSocialDetail(){ const params=new URLSearchParams(location.search); const brand=params.get('brand'); const type=params.get('type'); if(!brand && !type)return; const title=document.querySelector('#socialTitle'),desc=document.querySelector('#socialDescription'),links=document.querySelector('#socialLinks'),services=document.querySelector('#socialServices'),shots=document.querySelector('#socialScreenshots'); if(type==='automation'){ const folder=`${cfg.folders.ai}/${brand||params.get('item')}`; const label=titleFromFilename(brand||params.get('item')||'Automation workflow'); if(title)title.innerHTML=`${esc(label)} <em>workflow.</em>`; if(desc)desc.textContent='A practical AI or automation workflow showcased through its assets and implementation visuals.'; if(links)links.innerHTML='<span class="detail-note">Add supporting links in this folder when you want to show tools, demos or documentation.</span>'; if(services)services.innerHTML=['AI workflow','Automation','Process design'].map(x=>`<span>${x}</span>`).join(''); if(shots)loadSimple(folder,'#socialScreenshots','AI / Automation'); return; } const folder=`${cfg.folders.social}/${brand}`; const label=titleFromFilename(brand||'Brand'); if(title)title.innerHTML=`${esc(label)} <em>social system.</em>`; try{ const entries=await listDir(folder); const imgs=await walkImages(folder); const meta=entries.find(x=>x.type==='file'&&x.name.toLowerCase()==='meta.json'); if(meta?.download_url){try{const m=await (await fetch(meta.download_url)).json(); if(m.name&&title)title.innerHTML=`${esc(m.name)} <em>social system.</em>`; if(m.description&&desc)desc.textContent=m.description; if(links)links.innerHTML=(m.links||[]).map(l=>`<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label||l.url)} <span>↗</span></a>`).join('')||'<span class="detail-note">No brand links added yet.</span>'; if(services)services.innerHTML=(m.services||['Content planning','Social media management','Creative direction']).map(x=>`<span>${esc(x)}</span>`).join('');}catch(e){}} else {if(desc)desc.textContent='Social media content, management and creative work for this brand. Add a meta.json file to customise the case description and links.'; if(links)links.innerHTML='<span class="detail-note">Optional: add meta.json inside this brand folder for links and a custom description.</span>'; if(services)services.innerHTML=['Content planning','Social media management','Creative direction'].map(x=>`<span>${x}</span>`).join('');} renderImages(shots,imgs,'Social media work'); }catch(e){if(shots)shots.innerHTML=emptyState('Brand folder not found.','Check the folder name in assets/img/social-media-management/.');} }
 
-      window.location.href = `mailto:zavoryn@outlook.com?subject=${subject}&body=${body}`;
-      const success = form.querySelector(".form-success");
-      if (success) success.hidden = false;
-    });
-  }
+  renderWebsites(); loadBrand(); loadSimple(cfg.folders.posts,'#postCatalog','Post design'); loadSocial(); loadAI(); loadSocialDetail();
 })();
