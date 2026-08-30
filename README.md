@@ -1,63 +1,64 @@
-# Zavoryn — Static Website
+# Zavoryn — Portfolio V3
 
-**Brand:** Zavoryn  
-**Slogan:** Make Business Smarter  
-**Email:** zavoryn@outlook.com  
-**Instagram/Facebook:** zavoryn.official
+A static GitHub Pages portfolio with a self-updating visual catalogue.
 
-## What this is
+## Folder system
 
-A premium, responsive, static agency website designed for Zavoryn. It includes:
+Upload new visual work to these folders in the GitHub repository:
 
-- Home
-- About
-- Services
-- Portfolio
-- 3 concept project detail pages
-- Contact
-- Privacy
-- Terms
-- 404
-- Responsive mobile navigation
-- Portfolio filters
-- Scroll reveal animations
-- Contact form that prepares an email through `mailto:`
-- No backend, database, admin panel, or paid dependency
+```text
+assets/img/
+├── website-development/
+├── brand-designing/
+│   ├── logos/
+│   ├── letterheads/
+│   ├── business-cards/
+│   ├── stationery/
+│   └── brand-guidelines/
+├── social-media-management/
+│   └── Brand-Name/
+├── post-designing/
+└── ai-automation/
+    └── Workflow-Name/
+```
 
-## Files
+## How automatic catalogues work
 
-- `index.html`
-- `about.html`
-- `services.html`
-- `portfolio.html`
-- `project-dental.html`
-- `project-medspa.html`
-- `project-realestate.html`
-- `contact.html`
-- `privacy.html`
-- `terms.html`
-- `404.html`
-- `assets/style.css`
-- `assets/script.js`
-- `assets/favicon.svg`
+Brand design, post design, social management and AI/automation galleries read the public GitHub repository through the GitHub Contents API. After you commit/upload an image, refresh the portfolio page and it will appear in the matching catalogue. No code edit is required for visual uploads.
 
-## Deploy
+### Website projects
+Website cards need a title, description, cover image and destination URL, so they are kept in `assets/portfolio-data.js`. Example:
 
-This can be deployed as a static site on GitHub Pages, Cloudflare Pages, Netlify, or similar static hosting.
+```js
+{
+  title: "My New Website",
+  category: "Restaurant",
+  description: "A conversion-focused restaurant website.",
+  cover: "assets/img/website-development/my-new-website.svg",
+  url: "https://example.com",
+  label: "Client project"
+}
+```
 
-For Cloudflare Pages, connect the GitHub repository and use:
-- Framework preset: None
-- Build command: none
-- Output directory: `/`
+Add another object to the `websites` array, commit, and the card appears automatically.
 
-Keep `index.html` at the repository root.
+### Social media brands
+Create a folder such as `assets/img/social-media-management/Acme-Coffee/` and upload the cover/screenshot images. The folder becomes a card automatically. Optional `meta.json` can customise the case page:
 
-## Editing
+```json
+{
+  "name": "Acme Coffee",
+  "description": "How Zavoryn managed the brand's social presence and content system.",
+  "services": ["Content planning", "Social media management", "Creative direction"],
+  "links": [
+    {"label": "Instagram", "url": "https://instagram.com/example"},
+    {"label": "Website", "url": "https://example.com"}
+  ]
+}
+```
 
-Because this is plain HTML/CSS/JS, you can edit it from GitHub's browser editor (`github.dev`) without VS Code.
+## Image formats
+Use JPG, PNG, WEBP, GIF or SVG. Keep filenames simple (`campaign-01.jpg`, `logo-main.png`).
 
-## Contact form
-
-The contact form does not store submissions because this version has no backend. It creates an email draft addressed to `zavoryn@outlook.com`.
-
-If a real lead database is needed later, add a backend such as Supabase or a form service.
+## Important
+Concept work is labelled as concept work. Only publish real client names, links, screenshots, testimonials or results when you genuinely have permission to show them.
