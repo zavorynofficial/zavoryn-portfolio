@@ -57,6 +57,7 @@
       const email = String(data.get("email") || "").trim();
       const country = String(data.get("country") || "").trim();
       const service = String(data.get("service") || "").trim();
+      const timeline = String(data.get("timeline") || "").trim();
       const message = String(data.get("message") || "").trim();
 
       if (!name || !email || !service || !message) {
@@ -75,6 +76,7 @@ Business: ${business || "Not provided"}
 Email: ${email}
 Country: ${country || "Not provided"}
 Service: ${service}
+Preferred timeline: ${timeline || "Not provided"}
 
 Project details:
 ${message}
