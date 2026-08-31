@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Aurelia Residences — Live Above Ordinary</title>
+    <meta name="description" content="The Aurelia Residences: a premium luxury residential development featuring contemporary apartments, world-class amenities, and timeless architectural design." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏛</text></svg>" />
+
+    <!-- Font Awesome 6 (Free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0b0b0b;
+            --warm-white: #f5f0eb;
+            --stone: #d4cdc4;
+            --beige: #e8e0d8;
+            --gold: #b8956e;
+            --gold-light: #d4b694;
+            --gold-glow: rgba(184, 149, 110, 0.3);
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            --transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            --font-serif: 'Georgia', 'Times New Roman', serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--black);
+            color: var(--warm-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        button {
+            cursor: pointer;
+            font: inherit;
+            border: none;
+            background: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== SCROLL PROGRESS ===== */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 12px var(--gold-glow);
+        }
+
+        /* ===== STICKY WHATSAPP ===== */
+        .whatsapp-sticky {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #25d366;
+            color: #fff;
+            padding: 12px 20px 12px 16px;
+            border-radius: 60px;
+            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.35);
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+        .whatsapp-sticky i {
+            font-size: 1.6rem;
+        }
+        .whatsapp-sticky .tooltip {
+            display: none;
+        }
+        @media (min-width: 640px) {
+            .whatsapp-sticky .tooltip {
+                display: inline;
+            }
+        }
+        .whatsapp-sticky:hover {
+            transform: scale(1.04);
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.5);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 40px 0;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background:
+                url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80') center/cover no-repeat;
+            transform: scale(1.05);
+            animation: heroZoom 20s ease-in-out infinite alternate;
+            filter: brightness(0.5) saturate(0.9);
+        }
+        @keyframes heroZoom {
+            0% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1.15);
+            }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: radial-gradient(ellipse at 30% 40%, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.7) 80%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 880px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            border: 1px solid rgba(184, 149, 110, 0.35);
+            padding: 6px 22px;
+            border-radius: 60px;
+            margin-bottom: 32px;
+            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.6rem, 11vw, 5.8rem);
+            font-weight: 400;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+            text-shadow: 0 4px 40px rgba(0, 0, 0, 0.6);
+        }
+        .hero h1 span {
+            display: block;
+            color: var(--gold-light);
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.35rem);
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 40px;
+            border-radius: 60px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.02em;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+        .btn-primary {
+            background: var(--gold);
+            color: #fff;
+            box-shadow: 0 8px 30px rgba(184, 149, 110, 0.3);
+        }
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(184, 149, 110, 0.45);
+        }
+        .btn-secondary {
+            background: transparent;
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+            backdrop-filter: blur(6px);
+        }
+        .btn-secondary:hover {
+            border-color: var(--gold-light);
+            background: rgba(184, 149, 110, 0.15);
+            transform: translateY(-3px);
+        }
+
+        /* floating glass cards */
+        .hero-floating-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 48px;
+        }
+        .float-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 12px 26px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+            animation: floatCard 6s ease-in-out infinite;
+            transition: var(--transition);
+        }
+        .float-card:nth-child(2) {
+            animation-delay: 1.2s;
+        }
+        .float-card:nth-child(3) {
+            animation-delay: 2.4s;
+        }
+        @keyframes floatCard {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+        .float-card i {
+            margin-right: 8px;
+            color: var(--gold-light);
+        }
+
+        /* ===== 3D BUILDING (CSS faux-3D) ===== */
+        .building-3d {
+            position: absolute;
+            bottom: 10%;
+            right: 5%;
+            z-index: 2;
+            width: 120px;
+            height: 160px;
+            perspective: 800px;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        @media (max-width: 768px) {
+            .building-3d {
+                display: none;
+            }
+        }
+        .building-3d-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform: rotateX(20deg) rotateY(-30deg);
+            animation: floatBuilding 8s ease-in-out infinite;
+        }
+        @keyframes floatBuilding {
+            0%,
+            100% {
+                transform: rotateX(20deg) rotateY(-30deg) translateY(0);
+            }
+            50% {
+                transform: rotateX(22deg) rotateY(-28deg) translateY(-12px);
+            }
+        }
+        .brick {
+            position: absolute;
+            background: rgba(184, 149, 110, 0.25);
+            border: 1px solid rgba(184, 149, 110, 0.15);
+            backdrop-filter: blur(2px);
+            border-radius: 2px;
+        }
+        .brick:nth-child(1) {
+            width: 40%;
+            height: 12%;
+            top: 6%;
+            left: 10%;
+        }
+        .brick:nth-child(2) {
+            width: 35%;
+            height: 12%;
+            top: 6%;
+            right: 10%;
+        }
+        .brick:nth-child(3) {
+            width: 80%;
+            height: 12%;
+            top: 22%;
+            left: 10%;
+        }
+        .brick:nth-child(4) {
+            width: 35%;
+            height: 12%;
+            top: 38%;
+            left: 10%;
+        }
+        .brick:nth-child(5) {
+            width: 40%;
+            height: 12%;
+            top: 38%;
+            right: 10%;
+        }
+        .brick:nth-child(6) {
+            width: 80%;
+            height: 12%;
+            top: 54%;
+            left: 10%;
+        }
+        .brick:nth-child(7) {
+            width: 35%;
+            height: 12%;
+            top: 70%;
+            left: 10%;
+        }
+        .brick:nth-child(8) {
+            width: 40%;
+            height: 12%;
+            top: 70%;
+            right: 10%;
+        }
+        .brick:nth-child(9) {
+            width: 80%;
+            height: 12%;
+            top: 86%;
+            left: 10%;
+        }
+        .brick.glow {
+            background: rgba(184, 149, 110, 0.4);
+            box-shadow: 0 0 20px var(--gold-glow);
+        }
+
+        /* ===== SECTION COMMON ===== */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+        .section-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .section-title span {
+            color: var(--gold-light);
+        }
+        .section-sub {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 600px;
+            font-weight: 300;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+            margin: 16px 0 24px;
+            opacity: 0.5;
+        }
+        .divider-center {
+            margin: 16px auto 24px;
+        }
+
+        /* ===== PROPERTY OVERVIEW ===== */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 40px 32px;
+            backdrop-filter: blur(6px);
+        }
+        .overview-item {
+            text-align: center;
+            transition: var(--transition);
+        }
+        .overview-item i {
+            font-size: 2rem;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+            display: block;
+        }
+        .overview-item .num {
+            font-size: 1.6rem;
+            font-weight: 300;
+            font-family: var(--font-serif);
+            color: #fff;
+        }
+        .overview-item .label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .overview-item:hover {
+            transform: translateY(-4px);
+        }
+
+        /* ===== RESIDENCES ===== */
+        .residences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            margin-top: 48px;
+        }
+        .residence-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(4px);
+            position: relative;
+        }
+        .residence-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(184, 149, 110, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+        .residence-card .img-wrap {
+            height: 210px;
+            overflow: hidden;
+            position: relative;
+        }
+        .residence-card .img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .residence-card:hover .img-wrap img {
+            transform: scale(1.06);
+        }
+        .residence-card .body {
+            padding: 24px 26px 28px;
+        }
+        .residence-card .body h3 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 6px;
+        }
+        .residence-card .body .specs {
+            display: flex;
+            gap: 18px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin: 8px 0 16px;
+        }
+        .residence-card .body .specs i {
+            margin-right: 4px;
+            color: var(--gold-light);
+        }
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 60px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            background: rgba(184, 149, 110, 0.1);
+            color: var(--gold-light);
+        }
+
+        /* ===== GALLERY (masonry) ===== */
+        .gallery-masonry {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-auto-rows: 200px;
+            gap: 16px;
+            margin-top: 40px;
+        }
+        .gallery-masonry .item {
+            overflow: hidden;
+            border-radius: 16px;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .gallery-masonry .item:hover {
+            transform: scale(1.02);
+            z-index: 2;
+        }
+        .gallery-masonry .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .gallery-masonry .item:hover img {
+            transform: scale(1.05);
+        }
+        .gallery-masonry .item.tall {
+            grid-row: span 2;
+        }
+        .gallery-masonry .item.wide {
+            grid-column: span 2;
+        }
+
+        /* ===== AMENITIES ===== */
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 28px;
+            margin-top: 40px;
+        }
+        .amenity-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: var(--transition);
+            backdrop-filter: blur(4px);
+        }
+        .amenity-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(184, 149, 110, 0.25);
+            background: rgba(255, 255, 255, 0.06);
+        }
+        .amenity-card i {
+            font-size: 2.4rem;
+            color: var(--gold-light);
+            margin-bottom: 12px;
+        }
+        .amenity-card h4 {
+            font-weight: 400;
+            font-size: 1.1rem;
+            letter-spacing: 0.02em;
+        }
+        .amenity-card p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 4px;
+        }
+
+        /* ===== LOCATION ===== */
+        .location-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 32px;
+            align-items: center;
+        }
+        @media (max-width: 860px) {
+            .location-wrap {
+                grid-template-columns: 1fr;
+            }
+        }
+        .location-map {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .location-map .map-placeholder {
+            width: 100%;
+            height: 100%;
+            min-height: 260px;
+            background:
+                radial-gradient(circle at 20% 30%, rgba(184, 149, 110, 0.15), transparent 60%),
+                radial-gradient(circle at 80% 70%, rgba(184, 149, 110, 0.08), transparent 50%);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+            border: 1px dashed rgba(255, 255, 255, 0.08);
+        }
+        .location-map .map-placeholder i {
+            font-size: 3rem;
+            color: var(--gold-light);
+            opacity: 0.4;
+            margin-bottom: 12px;
+        }
+        .location-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .location-list .item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .location-list .item i {
+            color: var(--gold-light);
+            width: 24px;
+            text-align: center;
+        }
+        .location-list .item span {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+        }
+
+        /* ===== INVESTMENT ===== */
+        .investment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+        .invest-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 28px 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: var(--transition);
+        }
+        .invest-item:hover {
+            border-color: rgba(184, 149, 110, 0.2);
+        }
+        .invest-item i {
+            font-size: 2rem;
+            color: var(--gold-light);
+            margin-bottom: 10px;
+        }
+        .invest-item h5 {
+            font-weight: 400;
+            font-size: 1rem;
+            letter-spacing: 0.02em;
+        }
+        .invest-item p {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 4px;
+        }
+
+        /* ===== FLOOR PLANS ===== */
+        .floorplans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .floor-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 28px 24px 32px;
+            text-align: center;
+            transition: var(--transition);
+            backdrop-filter: blur(4px);
+        }
+        .floor-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(184, 149, 110, 0.25);
+        }
+        .floor-card .plan-svg {
+            width: 100%;
+            max-width: 140px;
+            margin: 0 auto 16px;
+            opacity: 0.5;
+            transition: var(--transition);
+        }
+        .floor-card:hover .plan-svg {
+            opacity: 0.8;
+        }
+        .floor-card h4 {
+            font-weight: 400;
+            font-size: 1.1rem;
+        }
+        .floor-card .meta {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin: 4px 0 16px;
+        }
+        .floor-card .actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .floor-card .actions .btn-sm {
+            padding: 6px 18px;
+            font-size: 0.75rem;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            transition: var(--transition);
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .floor-card .actions .btn-sm:hover {
+            border-color: var(--gold);
+            color: var(--gold-light);
+            background: rgba(184, 149, 110, 0.08);
+        }
+
+        /* ===== BOOKING FORM ===== */
+        .form-wrap {
+            max-width: 680px;
+            margin: 40px auto 0;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 28px;
+            padding: 48px 40px;
+            backdrop-filter: blur(8px);
+        }
+        @media (max-width: 520px) {
+            .form-wrap {
+                padding: 32px 20px;
+            }
+        }
+        .form-wrap .form-group {
+            margin-bottom: 20px;
+        }
+        .form-wrap label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 6px;
+        }
+        .form-wrap input,
+        .form-wrap select,
+        .form-wrap textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            font-family: var(--font-sans);
+            outline: none;
+        }
+        .form-wrap input:focus,
+        .form-wrap select:focus,
+        .form-wrap textarea:focus {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.07);
+            box-shadow: 0 0 0 3px rgba(184, 149, 110, 0.15);
+        }
+        .form-wrap input::placeholder,
+        .form-wrap textarea::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .form-wrap select option {
+            background: var(--black);
+            color: #fff;
+        }
+        .form-wrap textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .form-wrap .btn-primary {
+            width: 100%;
+            justify-content: center;
+            padding: 18px;
+            font-size: 1rem;
+        }
+        .form-wrap .whatsapp-alt {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 16px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.4);
+            transition: var(--transition);
+        }
+        .form-wrap .whatsapp-alt i {
+            color: #25d366;
+            font-size: 1.2rem;
+        }
+        .form-wrap .whatsapp-alt:hover {
+            color: #fff;
+        }
+
+        /* ===== FINAL CTA ===== */
+        .final-cta {
+            text-align: center;
+            padding: 80px 0 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .final-cta h2 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3.4rem);
+            font-weight: 400;
+            margin-bottom: 24px;
+        }
+        .final-cta .btns {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 48px 0 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+        footer .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 28px;
+            margin-bottom: 32px;
+        }
+        footer .footer-grid h6 {
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 400;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        footer .footer-grid a {
+            display: block;
+            padding: 4px 0;
+            transition: var(--transition);
+            color: rgba(255, 255, 255, 0.3);
+        }
+        footer .footer-grid a:hover {
+            color: var(--gold-light);
+        }
+        footer .footer-bottom {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 0.75rem;
+        }
+        footer .footer-bottom .concept {
+            color: var(--gold);
+            opacity: 0.5;
+            letter-spacing: 0.06em;
+        }
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 16px;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8);
+            object-fit: contain;
+        }
+        .lightbox .close {
+            position: absolute;
+            top: 28px;
+            right: 32px;
+            font-size: 2.4rem;
+            color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: var(--transition);
+            background: none;
+            border: none;
+        }
+        .lightbox .close:hover {
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        /* ===== RESPONSIVE TWEAKS ===== */
+        @media (max-width: 640px) {
+            .hero-floating-cards .float-card {
+                font-size: 0.7rem;
+                padding: 8px 16px;
+            }
+            .residences-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-masonry {
+                grid-template-columns: 1fr 1fr;
+                grid-auto-rows: 140px;
+            }
+            .gallery-masonry .item.tall {
+                grid-row: span 1;
+            }
+            .gallery-masonry .item.wide {
+                grid-column: span 1;
+            }
+            .overview-grid {
+                grid-template-columns: 1fr 1fr;
+                padding: 24px 16px;
+                gap: 16px;
+            }
+            .form-wrap {
+                padding: 28px 16px;
+            }
+            .btn-primary,
+            .btn-secondary {
+                padding: 14px 28px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ===== ANIMATIONS ON SCROLL (simple) ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        /* scroll progress */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 12px var(--gold-glow);
+        }
+
+        /* ===== IMAGE MASK (hero text) ===== */
+        .mask-text {
+            background: linear-gradient(135deg, #fff 40%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Scroll Progress -->
+    <div id="scroll-progress"></div>
+
+    <!-- Sticky WhatsApp -->
+    <a href="https://wa.me/971501234567?text=Hi%2C%20I'd%20like%20to%20learn%20more%20about%20The%20Aurelia%20Residences."
+    target="_blank" rel="noopener" class="whatsapp-sticky">
+    <i class="fab fa-whatsapp"></i>
+    <span class="tooltip">Speak to a property advisor</span>
+</a>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+
+    <!-- 3D Building -->
+    <div class="building-3d">
+        <div class="building-3d-inner">
+            <div class="brick glow"></div>
+            <div class="brick"></div>
+            <div class="brick"></div>
+            <div class="brick"></div>
+            <div class="brick"></div>
+            <div class="brick"></div>
+            <div class="brick"></div>
+            <div class="brick"></div>
+            <div class="brick"></div>
+        </div>
+    </div>
+
+    <div class="hero-content">
+        <div class="hero-badge">The Aurelia Residences</div>
+        <h1>
+            Designed for the way
+            <span>extraordinary lives.</span>
+        </h1>
+        <p>
+            Contemporary residences, considered spaces and amenities designed around modern living.
+        </p>
+        <div class="hero-buttons">
+            <a href="#booking" class="btn-primary">
+                <i class="fas fa-calendar-check"></i> Book a Private Viewing
+            </a>
+            <a href="#footer" class="btn-secondary">
+                <i class="fas fa-file-pdf"></i> Request Brochure
+            </a>
+        </div>
+        <div class="hero-floating-cards">
+            <span class="float-card"><i class="fas fa-bed"></i> 2–4 Bedroom Residences</span>
+            <span class="float-card"><i class="fas fa-spa"></i> Private Amenities</span>
+            <span class="float-card"><i class="fas fa-gem"></i> Limited Collection</span>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PROPERTY OVERVIEW ===== -->
+<section id="overview">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">The Residence</div>
+            <h2 class="section-title">An <span>architectural</span> statement</h2>
+            <p class="section-sub mx-auto">Every detail crafted for a life of ease, elegance, and enduring value.</p>
+        </div>
+        <div class="overview-grid reveal">
+            <div class="overview-item">
+                <i class="fas fa-map-pin"></i>
+                <div class="num">Al Wasl</div>
+                <div class="label">Location</div>
+            </div>
+            <div class="overview-item">
+                <i class="fas fa-vector-square"></i>
+                <div class="num">1,800 – 4,200</div>
+                <div class="label">Sq. Ft.</div>
+            </div>
+            <div class="overview-item">
+                <i class="fas fa-bed"></i>
+                <div class="num">2 – 4</div>
+                <div class="label">Bedrooms</div>
+            </div>
+            <div class="overview-item">
+                <i class="fas fa-bath"></i>
+                <div class="num">2 – 5</div>
+                <div class="label">Bathrooms</div>
+            </div>
+            <div class="overview-item">
+                <i class="fas fa-car"></i>
+                <div class="num">2 – 3</div>
+                <div class="label">Parking</div>
+            </div>
+            <div class="overview-item">
+                <i class="fas fa-concierge-bell"></i>
+                <div class="num">24/7</div>
+                <div class="label">Concierge</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== RESIDENCES ===== -->
+<section id="residences" style="background:rgba(255,255,255,0.01);">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">Residences</div>
+            <h2 class="section-title">Curated <span>living</span> spaces</h2>
+            <p class="section-sub mx-auto">From intimate one-bedrooms to the pinnacle penthouse — each home is a sanctuary.</p>
+        </div>
+        <div class="residences-grid">
+            <!-- 1BR -->
+            <div class="residence-card reveal reveal-delay-1">
+                <div class="img-wrap">
+                    <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80" alt="One Bedroom" loading="lazy" />
+                </div>
+                <div class="body">
+                    <h3>One Bedroom</h3>
+                    <div class="specs">
+                        <span><i class="fas fa-vector-square"></i> 1,200 ft²</span>
+                        <span><i class="fas fa-bed"></i> 1</span>
+                        <span><i class="fas fa-bath"></i> 2</span>
+                    </div>
+                    <a href="#" class="btn-outline">View Residence <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <!-- 2BR -->
+            <div class="residence-card reveal reveal-delay-2">
+                <div class="img-wrap">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="Two Bedroom" loading="lazy" />
+                </div>
+                <div class="body">
+                    <h3>Two Bedroom</h3>
+                    <div class="specs">
+                        <span><i class="fas fa-vector-square"></i> 1,800 ft²</span>
+                        <span><i class="fas fa-bed"></i> 2</span>
+                        <span><i class="fas fa-bath"></i> 3</span>
+                    </div>
+                    <a href="#" class="btn-outline">View Residence <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <!-- 3BR -->
+            <div class="residence-card reveal reveal-delay-3">
+                <div class="img-wrap">
+                    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80" alt="Three Bedroom" loading="lazy" />
+                </div>
+                <div class="body">
+                    <h3>Three Bedroom</h3>
+                    <div class="specs">
+                        <span><i class="fas fa-vector-square"></i> 2,600 ft²</span>
+                        <span><i class="fas fa-bed"></i> 3</span>
+                        <span><i class="fas fa-bath"></i> 4</span>
+                    </div>
+                    <a href="#" class="btn-outline">View Residence <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <!-- Penthouse -->
+            <div class="residence-card reveal reveal-delay-1">
+                <div class="img-wrap">
+                    <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=600&q=80" alt="Penthouse" loading="lazy" />
+                </div>
+                <div class="body">
+                    <h3>Penthouse</h3>
+                    <div class="specs">
+                        <span><i class="fas fa-vector-square"></i> 4,200 ft²</span>
+                        <span><i class="fas fa-bed"></i> 4</span>
+                        <span><i class="fas fa-bath"></i> 5</span>
+                    </div>
+                    <a href="#" class="btn-outline">View Residence <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section id="gallery">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">Gallery</div>
+            <h2 class="section-title">A <span>visual</span> narrative</h2>
+            <p class="section-sub mx-auto">Step inside the world of Aurelia — where light, form, and finish converge.</p>
+        </div>
+        <div class="gallery-masonry">
+            <div class="item tall" data-img="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80">
+                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&q=80" alt="Architecture" loading="lazy" />
+            </div>
+            <div class="item" data-img="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&q=80" alt="Interior" loading="lazy" />
+            </div>
+            <div class="item wide" data-img="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80">
+                <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Kitchen" loading="lazy" />
+            </div>
+            <div class="item" data-img="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&q=80">
+                <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400&q=80" alt="Living Room" loading="lazy" />
+            </div>
+            <div class="item tall" data-img="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&q=80">
+                <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=400&q=80" alt="Balcony" loading="lazy" />
+            </div>
+            <div class="item" data-img="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80">
+                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400&q=80" alt="City View" loading="lazy" />
+            </div>
+            <div class="item" data-img="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&q=80">
+                <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400&q=80" alt="Amenity" loading="lazy" />
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== AMENITIES ===== -->
+<section id="amenities" style="background:rgba(255,255,255,0.01);">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">Amenities</div>
+            <h2 class="section-title">Beyond the <span>doorstep</span></h2>
+            <p class="section-sub mx-auto">Everyday life elevated by spaces designed for wellbeing, connection, and privacy.</p>
+        </div>
+        <div class="amenities-grid">
+            <div class="amenity-card reveal"><i class="fas fa-swimmer"></i><h4>Infinity Pool</h4><p>Horizon-edge with city views</p></div>
+            <div class="amenity-card reveal reveal-delay-1"><i class="fas fa-dumbbell"></i><h4>Fitness Studio</h4><p>State-of-the-art equipment</p></div>
+            <div class="amenity-card reveal reveal-delay-2"><i class="fas fa-glass-cheers"></i><h4>Residents Lounge</h4><p>Curated social space</p></div>
+            <div class="amenity-card reveal reveal-delay-3"><i class="fas fa-tree"></i><h4>Rooftop Terrace</h4><p>Landscaped gardens &amp; seating</p></div>
+            <div class="amenity-card reveal"><i class="fas fa-concierge-bell"></i><h4>Concierge</h4><p>24/7 dedicated service</p></div>
+            <div class="amenity-card reveal reveal-delay-1"><i class="fas fa-parking"></i><h4>Secure Parking</h4><p>Valet &amp; private bays</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== LOCATION ===== -->
+<section id="location">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">Location</div>
+            <h2 class="section-title">Where <span>city</span> meets calm</h2>
+            <p class="section-sub mx-auto">Nestled in one of the most sought-after neighbourhoods, with everything that matters within reach.</p>
+        </div>
+        <div class="location-wrap">
+            <div class="location-map reveal">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Al Wasl · Dubai</span>
+                    <span style="font-size:0.7rem;opacity:0.4;">Illustrative location</span>
+                </div>
+            </div>
+            <div class="location-list reveal reveal-delay-1">
+                <div class="item"><i class="fas fa-utensils"></i><span>Fine dining &amp; cafés</span></div>
+                <div class="item"><i class="fas fa-shopping-bag"></i><span>Boutique shopping</span></div>
+                <div class="item"><i class="fas fa-school"></i><span>International schools</span></div>
+                <div class="item"><i class="fas fa-tree"></i><span>Parks &amp; waterfront</span></div>
+                <div class="item"><i class="fas fa-road"></i><span>Major highways &amp; metro</span></div>
+                <div class="item"><i class="fas fa-plane"></i><span>Airport 20 min</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== INVESTMENT ===== -->
+<section id="investment" style="background:rgba(255,255,255,0.01);">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">Investment</div>
+            <h2 class="section-title">An address designed to <span>hold its value</span></h2>
+            <p class="section-sub mx-auto">Enduring quality, prime location, and timeless design — the foundations of lasting worth.</p>
+        </div>
+        <div class="investment-grid">
+            <div class="invest-item reveal"><i class="fas fa-building"></i><h5>Architectural Landmark</h5><p>Designed by award-winning studios</p></div>
+            <div class="invest-item reveal reveal-delay-1"><i class="fas fa-map-pin"></i><h5>Prime Location</h5><p>Al Wasl · Dubai</p></div>
+            <div class="invest-item reveal reveal-delay-2"><i class="fas fa-spa"></i><h5>Lifestyle Amenities</h5><p>Resort-style facilities</p></div>
+            <div class="invest-item reveal reveal-delay-3"><i class="fas fa-gem"></i><h5>Quality Craftsmanship</h5><p>Premium finishes throughout</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FLOOR PLANS ===== -->
+<section id="floorplans">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">Floor Plans</div>
+            <h2 class="section-title">Space <span>reimagined</span></h2>
+            <p class="section-sub mx-auto">Thoughtful layouts that balance openness, privacy, and flow.</p>
+        </div>
+        <div class="floorplans-grid">
+            <div class="floor-card reveal">
+                <div class="plan-svg">
+                    <svg viewBox="0 0 100 80" fill="none" stroke="rgba(184,149,110,0.3)" stroke-width="1.5">
+                        <rect x="10" y="10" width="80" height="60" rx="3" />
+                        <rect x="18" y="18" width="30" height="22" rx="2" />
+                        <rect x="55" y="18" width="25" height="22" rx="2" />
+                        <rect x="18" y="46" width="62" height="18" rx="2" />
+                        <circle cx="28" cy="32" r="4" stroke-dasharray="2 2" />
+                        <circle cx="68" cy="32" r="4" stroke-dasharray="2 2" />
+                    </svg>
+                </div>
+                <h4>Two Bedroom</h4>
+                <div class="meta">1,800 ft² · 2 Beds · 3 Baths</div>
+                <div class="actions">
+                    <button class="btn-sm">View Plan</button>
+                    <button class="btn-sm">Request Details</button>
+                </div>
+            </div>
+            <div class="floor-card reveal reveal-delay-1">
+                <div class="plan-svg">
+                    <svg viewBox="0 0 100 80" fill="none" stroke="rgba(184,149,110,0.3)" stroke-width="1.5">
+                        <rect x="10" y="10" width="80" height="60" rx="3" />
+                        <rect x="18" y="18" width="28" height="20" rx="2" />
+                        <rect x="52" y="18" width="28" height="20" rx="2" />
+                        <rect x="18" y="44" width="28" height="20" rx="2" />
+                        <rect x="52" y="44" width="28" height="20" rx="2" />
+                        <circle cx="28" cy="32" r="4" stroke-dasharray="2 2" />
+                        <circle cx="68" cy="32" r="4" stroke-dasharray="2 2" />
+                    </svg>
+                </div>
+                <h4>Three Bedroom</h4>
+                <div class="meta">2,600 ft² · 3 Beds · 4 Baths</div>
+                <div class="actions">
+                    <button class="btn-sm">View Plan</button>
+                    <button class="btn-sm">Request Details</button>
+                </div>
+            </div>
+            <div class="floor-card reveal reveal-delay-2">
+                <div class="plan-svg">
+                    <svg viewBox="0 0 100 80" fill="none" stroke="rgba(184,149,110,0.3)" stroke-width="1.5">
+                        <rect x="10" y="10" width="80" height="60" rx="3" />
+                        <rect x="18" y="18" width="24" height="18" rx="2" />
+                        <rect x="48" y="18" width="32" height="18" rx="2" />
+                        <rect x="18" y="42" width="24" height="18" rx="2" />
+                        <rect x="48" y="42" width="32" height="18" rx="2" />
+                        <rect x="18" y="66" width="62" height="8" rx="2" />
+                        <circle cx="28" cy="30" r="4" stroke-dasharray="2 2" />
+                        <circle cx="68" cy="30" r="4" stroke-dasharray="2 2" />
+                    </svg>
+                </div>
+                <h4>Penthouse</h4>
+                <div class="meta">4,200 ft² · 4 Beds · 5 Baths</div>
+                <div class="actions">
+                    <button class="btn-sm">View Plan</button>
+                    <button class="btn-sm">Request Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== BOOK A VIEWING ===== -->
+<section id="booking" style="background:rgba(255,255,255,0.01);">
+    <div class="container">
+        <div class="text-center">
+            <div class="section-label">Book a Viewing</div>
+            <h2 class="section-title">Experience <span>Aurelia</span> firsthand</h2>
+            <p class="section-sub mx-auto">Arrange a private tour of our residences and discover the art of living above ordinary.</p>
+        </div>
+        <div class="form-wrap reveal">
+            <form id="booking-form" novalidate>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" placeholder="Your name" required />
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" placeholder="+971 50 123 4567" required />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="you@example.com" required />
+                </div>
+                <div class="form-group">
+                    <label for="residence-type">Residence Type</label>
+                    <select id="residence-type">
+                        <option value="">Select a residence</option>
+                        <option value="1BR">One Bedroom</option>
+                        <option value="2BR">Two Bedroom</option>
+                        <option value="3BR">Three Bedroom</option>
+                        <option value="Penthouse">Penthouse</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="preferred-date">Preferred Date</label>
+                    <input type="date" id="preferred-date" />
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" placeholder="Any specific requests…"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <i class="fas fa-calendar-check"></i> Book Private Viewing
+                </button>
+            </form>
+            <a href="https://wa.me/971501234567?text=Hi%2C%20I'd%20like%20to%20learn%20more%20about%20The%20Aurelia%20Residences."
+            target="_blank" rel="noopener" class="whatsapp-alt">
+            <i class="fab fa-whatsapp"></i> Or enquire via WhatsApp
+        </a>
+    </div>
+</div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="final-cta" id="contact">
+    <div class="container">
+        <h2>Your next address <span style="color:var(--gold-light);">starts here.</span></h2>
+        <div class="btns">
+            <a href="#booking" class="btn-primary"><i class="fas fa-calendar-check"></i> Book a Viewing</a>
+            <a href="#footer" class="btn-secondary"><i class="fas fa-file-pdf"></i> Request Brochure</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div>
+                <h6>Project</h6>
+                <a href="#home">Home</a>
+                <a href="#overview">Overview</a>
+                <a href="#residences">Residences</a>
+            </div>
+            <div>
+                <h6>Living</h6>
+                <a href="#amenities">Amenities</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#floorplans">Floor Plans</a>
+            </div>
+            <div>
+                <h6>Connect</h6>
+                <a href="#location">Location</a>
+                <a href="#contact">Contact</a>
+                <a href="https://wa.me/971501234567?text=Hi%2C%20I'd%20like%20to%20learn%20more%20about%20The%20Aurelia%20Residences." target="_blank">WhatsApp</a>
+            </div>
+            <div>
+                <h6>Legal</h6>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 The Aurelia Residences</span>
+            <span class="concept">✦ Concept Development</span>
+            <span style="opacity:0.3;">Live above ordinary.</span>
+        </div>
+    </div>
+</footer>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox">
+    <button class="close" id="lightbox-close">&times;</button>
+    <img src="" alt="Fullscreen" id="lightbox-img" />
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+    (function() {
+        'use strict';
+
+        // ---- SCROLL PROGRESS ----
+        const progress = document.getElementById('scroll-progress');
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progressWidth = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progress.style.width = progressWidth + '%';
+        });
+
+        // ---- REVEAL ON SCROLL (Intersection Observer) ----
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(el => observer.observe(el));
+
+        // ---- LIGHTBOX ----
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeBtn = document.getElementById('lightbox-close');
+
+        document.querySelectorAll('.gallery-masonry .item').forEach(item => {
+            item.addEventListener('click', function() {
+                const imgSrc = this.dataset.img || this.querySelector('img')?.src;
+                if (imgSrc) {
+                    lightboxImg.src = imgSrc;
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+            lightboxImg.src = '';
+        }
+        closeBtn.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === this) closeLightbox();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // ---- BOOKING FORM (demo) ----
+        const form = document.getElementById('booking-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            if (!name) {
+                alert('Please enter your name.');
+                return;
+            }
+            alert('Thank you, ' + name +
+                '! Your viewing request has been received. A property advisor will contact you shortly.');
+            form.reset();
+        });
+
+        // ---- FLOOR PLAN BUTTONS (demo) ----
+        document.querySelectorAll('.floor-card .btn-sm').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const card = this.closest('.floor-card');
+                const title = card?.querySelector('h4')?.textContent || 'Floor Plan';
+                alert('Details for "' + title + '" — our team will be in touch with full information.');
+            });
+        });
+
+        // ---- RESIDENCE "VIEW RESIDENCE" (demo) ----
+        document.querySelectorAll('.residence-card .btn-outline').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const card = this.closest('.residence-card');
+                const title = card?.querySelector('h3')?.textContent || 'Residence';
+                alert('You are viewing the "' + title +
+                    '". A PDF brochure and detailed specification sheet will be sent to your email.');
+            });
+        });
+
+        // ---- HERO BUTTON "REQUEST BROCHURE" (demo) ----
+        document.querySelectorAll('a[href="#footer"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert(
+                    'Your brochure request has been received. We will send the full digital portfolio to your email shortly.');
+                document.getElementById('footer').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // ---- SMOOTH SCROLL for internal links (except those with #footer handled above) ----
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#footer') return; // handled above
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+    })();
+</script>
+
+</body>
+</html>

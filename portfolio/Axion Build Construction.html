@@ -1,0 +1,2690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AXION BUILD — We Build What Lasts.</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome 6 (Free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ========== RESET & BASE ========== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0b0b0b;
+            --charcoal: #1a1a1a;
+            --warm-concrete: #d4cdc4;
+            --warm-concrete-dark: #b8aea2;
+            --white: #f5f3f0;
+            --orange: #d97a3a;
+            --orange-light: #e8995e;
+            --orange-glow: rgba(217, 122, 58, 0.25);
+            --gold: #c9a87c;
+            --metal: #8a8a8a;
+            --glass: rgba(255, 255, 255, 0.06);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --font-serif: 'Playfair Display', 'Times New Roman', serif;
+            --transition: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            --transition-fast: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            --section-padding: 100px 0;
+            --max-width: 1400px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: inherit;
+            color: inherit;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* ========== SCROLLBAR ========== */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--charcoal);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--orange);
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--orange-light);
+        }
+
+        /* ========== UTILITY ========== */
+        .section-tag {
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--orange);
+            font-weight: 600;
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: clamp(2.4rem, 6vw, 4.8rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+        }
+
+        .section-title .highlight {
+            color: var(--orange);
+        }
+
+        .section-sub {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 580px;
+            line-height: 1.7;
+            margin-top: 20px;
+            font-weight: 300;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--orange);
+            color: var(--black);
+            padding: 16px 36px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: var(--transition-fast);
+            text-transform: uppercase;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+        .btn-primary:hover::after {
+            transform: translateX(0);
+        }
+        .btn-primary:hover {
+            background: var(--orange-light);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(217, 122, 58, 0.35);
+        }
+        .btn-primary i {
+            transition: transform 0.3s ease;
+        }
+        .btn-primary:hover i {
+            transform: translateX(4px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition-fast);
+            text-transform: uppercase;
+            background: transparent;
+            color: var(--white);
+        }
+        .btn-secondary:hover {
+            border-color: var(--orange);
+            background: rgba(217, 122, 58, 0.08);
+            transform: translateY(-2px);
+        }
+        .btn-secondary i {
+            transition: transform 0.3s ease;
+        }
+        .btn-secondary:hover i {
+            transform: translateX(4px);
+        }
+
+        /* ========== NAVIGATION ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 40px;
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
+            background: transparent;
+        }
+        .navbar.scrolled {
+            padding: 12px 40px;
+            background: rgba(11, 11, 11, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+        }
+        .navbar .logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--white);
+            transition: var(--transition-fast);
+        }
+        .navbar .logo span {
+            color: var(--orange);
+        }
+        .navbar.scrolled .logo {
+            font-size: 1.25rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+            transition: var(--transition-fast);
+            position: relative;
+            padding: 4px 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--orange);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--white);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links .nav-cta {
+            background: var(--orange);
+            color: var(--black);
+            padding: 10px 24px;
+            font-weight: 600;
+            border-radius: 0;
+            transition: var(--transition-fast);
+        }
+        .nav-links .nav-cta::after {
+            display: none;
+        }
+        .nav-links .nav-cta:hover {
+            background: var(--orange-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(217, 122, 58, 0.3);
+            color: var(--black);
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            padding: 4px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .hamburger span {
+            display: block;
+            width: 28px;
+            height: 2px;
+            background: var(--white);
+            transition: var(--transition-fast);
+            transform-origin: center;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile nav */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: var(--charcoal);
+            padding: 100px 40px 40px;
+            transition: right 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            border-left: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .mobile-nav.open {
+            right: 0;
+        }
+        .mobile-nav a {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            transition: var(--transition-fast);
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .mobile-nav a:hover {
+            color: var(--orange);
+            padding-left: 12px;
+        }
+        .mobile-nav .mobile-cta {
+            margin-top: 20px;
+            background: var(--orange);
+            color: var(--black);
+            padding: 16px;
+            text-align: center;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .mobile-nav .mobile-cta:hover {
+            background: var(--orange-light);
+            padding-left: 16px;
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            overflow: hidden;
+            background: var(--black);
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.05);
+            transition: transform 8s ease;
+            will-change: transform;
+        }
+        .hero:hover .hero-bg img {
+            transform: scale(1.12);
+        }
+        .hero-bg .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                    rgba(0, 0, 0, 0.75) 0%,
+                    rgba(0, 0, 0, 0.40) 50%,
+                    rgba(0, 0, 0, 0.60) 100%);
+            z-index: 1;
+        }
+
+        /* Light sweep */
+        .hero-bg .light-sweep {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: radial-gradient(ellipse at 30% 40%, rgba(217, 122, 58, 0.08) 0%, transparent 60%);
+            animation: lightPulse 8s ease-in-out infinite alternate;
+        }
+        @keyframes lightPulse {
+            0% {
+                opacity: 0.4;
+                transform: scale(1) translateX(-5%);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.2) translateX(5%);
+            }
+        }
+
+        /* Grid overlay */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0.5;
+        }
+
+        /* Technical measurements */
+        .hero-measurements {
+            position: absolute;
+            z-index: 2;
+            pointer-events: none;
+            font-size: 10px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.15);
+            letter-spacing: 2px;
+            font-family: var(--font-sans);
+        }
+        .hero-measurements.m1 {
+            bottom: 20%;
+            left: 6%;
+            transform: rotate(-90deg);
+            transform-origin: left center;
+        }
+        .hero-measurements.m2 {
+            top: 28%;
+            right: 4%;
+            writing-mode: vertical-rl;
+            letter-spacing: 6px;
+        }
+        .hero-measurements.m3 {
+            bottom: 8%;
+            right: 8%;
+            font-size: 9px;
+        }
+
+        /* Animated lines */
+        .hero-lines {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .hero-lines .line {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.04);
+            height: 1px;
+            width: 100%;
+            animation: lineMove 12s linear infinite;
+        }
+        .hero-lines .line:nth-child(1) {
+            top: 15%;
+            animation-delay: 0s;
+            width: 70%;
+            left: 0;
+        }
+        .hero-lines .line:nth-child(2) {
+            top: 45%;
+            animation-delay: 3s;
+            width: 50%;
+            right: 0;
+            left: auto;
+        }
+        .hero-lines .line:nth-child(3) {
+            top: 75%;
+            animation-delay: 6s;
+            width: 80%;
+            left: 0;
+        }
+        @keyframes lineMove {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* Floating wireframe */
+        .hero-wireframe {
+            position: absolute;
+            z-index: 2;
+            pointer-events: none;
+            right: 6%;
+            top: 18%;
+            width: 280px;
+            height: 380px;
+            opacity: 0.15;
+            animation: wireframeFloat 20s ease-in-out infinite;
+        }
+        .hero-wireframe svg {
+            width: 100%;
+            height: 100%;
+            stroke: var(--white);
+            stroke-width: 0.5;
+            fill: none;
+        }
+        @keyframes wireframeFloat {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            33% {
+                transform: translateY(-18px) rotate(1.5deg) scale(1.02);
+            }
+            66% {
+                transform: translateY(12px) rotate(-1deg) scale(0.98);
+            }
+        }
+
+        /* Hero content */
+        .hero-content {
+            position: relative;
+            z-index: 5;
+            max-width: 780px;
+            padding: 0 40px;
+        }
+        .hero-content .badge {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--orange);
+            font-weight: 600;
+            padding: 6px 16px;
+            border: 1px solid rgba(217, 122, 58, 0.25);
+            margin-bottom: 28px;
+            background: rgba(217, 122, 58, 0.06);
+        }
+        .hero-content h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(3.2rem, 10vw, 7rem);
+            font-weight: 800;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+        }
+        .hero-content h1 .highlight {
+            color: var(--orange);
+            display: block;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 520px;
+            line-height: 1.7;
+            margin-bottom: 36px;
+            font-weight: 300;
+        }
+        .hero-content .cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .hero-content .trust {
+            display: flex;
+            gap: 32px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: 1px;
+        }
+        .hero-content .trust span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .hero-content .trust span::before {
+            content: '●';
+            font-size: 6px;
+            color: var(--orange);
+            opacity: 0.6;
+        }
+
+        /* Floating project card */
+        .hero-project-card {
+            position: absolute;
+            z-index: 6;
+            bottom: 10%;
+            right: 6%;
+            width: 280px;
+            background: rgba(11, 11, 11, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 20px;
+            transition: var(--transition);
+            animation: cardFloat 6s ease-in-out infinite;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+        @keyframes cardFloat {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+        .hero-project-card .card-image {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            background: var(--charcoal);
+            margin-bottom: 12px;
+            transition: opacity 0.8s ease;
+            opacity: 1;
+        }
+        .hero-project-card .card-image.fade-out {
+            opacity: 0;
+        }
+        .hero-project-card .card-label {
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--orange);
+            font-weight: 600;
+        }
+        .hero-project-card .card-title {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 2px 0 4px;
+        }
+        .hero-project-card .card-type {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 300;
+        }
+        .hero-project-card .card-progress {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-project-card .card-progress .bar {
+            flex: 1;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 1px;
+            overflow: hidden;
+        }
+        .hero-project-card .card-progress .bar .fill {
+            height: 100%;
+            width: 72%;
+            background: var(--orange);
+            border-radius: 1px;
+            animation: progressPulse 3s ease-in-out infinite;
+        }
+        @keyframes progressPulse {
+            0%,
+            100% {
+                width: 72%;
+            }
+            50% {
+                width: 88%;
+            }
+        }
+        .hero-project-card .card-progress .perc {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ========== ABOUT / INTRO ========== */
+        .about {
+            padding: var(--section-padding);
+            background: var(--charcoal);
+            position: relative;
+        }
+        .about .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            align-items: center;
+        }
+        .about-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+        .about-image img {
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        .about-image:hover img {
+            transform: scale(1.03);
+        }
+        .about-image .accent-line {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--orange);
+        }
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 40px;
+            margin-top: 30px;
+        }
+        .about-stats .stat {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            padding-bottom: 12px;
+        }
+        .about-stats .stat .number {
+            font-family: var(--font-serif);
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: var(--orange);
+            line-height: 1;
+        }
+        .about-stats .stat .number .suffix {
+            font-size: 1.4rem;
+        }
+        .about-stats .stat .label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        /* ========== SERVICES ========== */
+        .services {
+            padding: var(--section-padding);
+            background: var(--black);
+        }
+        .services .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .services .section-header .section-sub {
+            margin: 16px auto 0;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .service-card {
+            background: var(--charcoal);
+            padding: 32px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            cursor: default;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(217, 122, 58, 0.06) 100%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+        .service-card:hover::before {
+            opacity: 1;
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(217, 122, 58, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        .service-card .number {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            font-weight: 800;
+            color: rgba(217, 122, 58, 0.15);
+            line-height: 1;
+            margin-bottom: 8px;
+            transition: color 0.4s ease;
+        }
+        .service-card:hover .number {
+            color: rgba(217, 122, 58, 0.3);
+        }
+        .service-card .icon {
+            font-size: 2rem;
+            color: var(--orange);
+            margin-bottom: 12px;
+            opacity: 0.6;
+        }
+        .service-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .service-card p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        .service-card .arrow {
+            margin-top: 16px;
+            font-size: 0.85rem;
+            color: var(--orange);
+            opacity: 0;
+            transform: translateX(-8px);
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+        .service-card:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .service-card .card-bg-img {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.04;
+            object-fit: cover;
+            transition: opacity 0.6s ease, transform 0.8s ease;
+            pointer-events: none;
+        }
+        .service-card:hover .card-bg-img {
+            opacity: 0.10;
+            transform: scale(1.04);
+        }
+        .service-card>*:not(.card-bg-img) {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========== PROJECT SHOWCASE ========== */
+        .projects {
+            padding: var(--section-padding);
+            background: var(--charcoal);
+        }
+        .projects .section-header {
+            margin-bottom: 50px;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-auto-rows: 280px;
+            gap: 20px;
+        }
+        .project-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            background: var(--black);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: var(--transition);
+        }
+        .project-item:hover {
+            border-color: rgba(217, 122, 58, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
+        }
+        .project-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        .project-item:hover img {
+            transform: scale(1.06);
+        }
+        .project-item .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 28px;
+            transition: var(--transition);
+        }
+        .project-item .overlay .tag {
+            font-size: 9px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--orange);
+            font-weight: 600;
+        }
+        .project-item .overlay h4 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin: 2px 0 4px;
+        }
+        .project-item .overlay p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+        }
+        .project-item .overlay .arrow-icon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.2rem;
+            color: var(--orange);
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.4s ease;
+        }
+        .project-item:hover .overlay .arrow-icon {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .project-item.wide {
+            grid-column: span 2;
+        }
+        .project-item.tall {
+            grid-row: span 2;
+        }
+
+        /* ========== 3D ARCHITECTURE ========== */
+        .blueprint {
+            padding: var(--section-padding);
+            background: var(--black);
+            position: relative;
+            overflow: hidden;
+        }
+        .blueprint .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .blueprint-content .section-title {
+            margin-bottom: 16px;
+        }
+        .blueprint-content .section-sub {
+            margin-top: 0;
+        }
+        .blueprint-visual {
+            position: relative;
+            min-height: 420px;
+            background: var(--charcoal);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .blueprint-visual .building-container {
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            height: 340px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        .blueprint-visual .floor {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(217, 122, 58, 0.08);
+            border: 1px solid rgba(217, 122, 58, 0.15);
+            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            width: 100%;
+        }
+        .blueprint-visual .floor:nth-child(1) {
+            height: 16%;
+            width: 100%;
+            bottom: 0;
+            border-color: rgba(217, 122, 58, 0.3);
+        }
+        .blueprint-visual .floor:nth-child(2) {
+            height: 14%;
+            width: 92%;
+            bottom: 16%;
+            transition-delay: 0.2s;
+        }
+        .blueprint-visual .floor:nth-child(3) {
+            height: 14%;
+            width: 84%;
+            bottom: 30%;
+            transition-delay: 0.4s;
+        }
+        .blueprint-visual .floor:nth-child(4) {
+            height: 14%;
+            width: 76%;
+            bottom: 44%;
+            transition-delay: 0.6s;
+        }
+        .blueprint-visual .floor:nth-child(5) {
+            height: 14%;
+            width: 68%;
+            bottom: 58%;
+            transition-delay: 0.8s;
+        }
+        .blueprint-visual .floor:nth-child(6) {
+            height: 14%;
+            width: 60%;
+            bottom: 72%;
+            transition-delay: 1.0s;
+        }
+        .blueprint-visual .floor .glass {
+            position: absolute;
+            inset: 2px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .blueprint-visual .floor .label {
+            position: absolute;
+            right: -70px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 8px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.15);
+            font-weight: 400;
+            white-space: nowrap;
+        }
+        .blueprint-labels {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 30px;
+            margin-top: 20px;
+        }
+        .blueprint-labels .bl-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+        .blueprint-labels .bl-item .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--orange);
+            opacity: 0.4;
+        }
+
+        /* ========== PROCESS ========== */
+        .process {
+            padding: var(--section-padding);
+            background: var(--charcoal);
+            overflow: hidden;
+        }
+        .process .section-header {
+            margin-bottom: 50px;
+        }
+        .process-track {
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            padding: 20px 0 40px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .process-track::-webkit-scrollbar {
+            height: 4px;
+        }
+        .process-track::-webkit-scrollbar-thumb {
+            background: var(--orange);
+        }
+        .process-step {
+            flex: 0 0 280px;
+            padding: 0 30px 0 0;
+            scroll-snap-align: start;
+            position: relative;
+            opacity: 0.3;
+            transition: all 0.6s ease;
+            border-right: 1px solid rgba(255, 255, 255, 0.04);
+            padding-right: 40px;
+        }
+        .process-step.active {
+            opacity: 1;
+        }
+        .process-step .step-num {
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            font-weight: 800;
+            color: rgba(217, 122, 58, 0.1);
+            line-height: 1;
+            margin-bottom: 4px;
+            transition: color 0.6s ease;
+        }
+        .process-step.active .step-num {
+            color: rgba(217, 122, 58, 0.5);
+        }
+        .process-step h4 {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .process-step p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 200px;
+        }
+        .process-step .step-line {
+            width: 40px;
+            height: 2px;
+            background: rgba(217, 122, 58, 0.15);
+            margin: 12px 0;
+            transition: width 0.6s ease, background 0.6s ease;
+        }
+        .process-step.active .step-line {
+            width: 80px;
+            background: var(--orange);
+        }
+
+        /* ========== MATERIAL / QUALITY ========== */
+        .material {
+            padding: var(--section-padding);
+            background: var(--black);
+        }
+        .material .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .material-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .material-grid .mat-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1/1;
+            background: var(--charcoal);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: var(--transition);
+        }
+        .material-grid .mat-item:hover {
+            border-color: rgba(217, 122, 58, 0.15);
+            transform: scale(1.02);
+        }
+        .material-grid .mat-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        .material-grid .mat-item:hover img {
+            transform: scale(1.06);
+        }
+        .material-grid .mat-item .mat-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 16px 20px;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, transparent);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .material-grid .mat-item:nth-child(1) {
+            grid-row: span 2;
+        }
+        .material-grid .mat-item:nth-child(4) {
+            grid-column: span 2;
+        }
+
+        /* ========== MACHINERY ========== */
+        .machinery {
+            padding: var(--section-padding);
+            background: var(--charcoal);
+            position: relative;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        .machinery-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .machinery-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.08);
+            transition: transform 12s ease;
+            will-change: transform;
+        }
+        .machinery:hover .machinery-bg img {
+            transform: scale(1.16);
+        }
+        .machinery-bg .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0.6) 100%);
+            z-index: 1;
+        }
+        .machinery-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            padding: 0 40px;
+        }
+        .machinery-content .section-title {
+            font-size: clamp(2.8rem, 8vw, 5.6rem);
+        }
+        .machinery-content .section-sub {
+            font-size: 1.1rem;
+            max-width: 440px;
+        }
+        .machinery-content .btn-primary {
+            margin-top: 10px;
+        }
+
+        /* ========== TESTIMONIALS ========== */
+        .testimonials {
+            padding: var(--section-padding);
+            background: var(--black);
+        }
+        .testimonials .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        .testimonial-item {
+            padding: 36px 32px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: var(--charcoal);
+            transition: var(--transition);
+        }
+        .testimonial-item:hover {
+            border-color: rgba(217, 122, 58, 0.12);
+            transform: translateY(-4px);
+        }
+        .testimonial-item .quote {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-weight: 400;
+            font-style: italic;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 16px;
+        }
+        .testimonial-item .quote::before {
+            content: '"';
+            color: var(--orange);
+            font-size: 2.4rem;
+            opacity: 0.3;
+            margin-right: 4px;
+        }
+        .testimonial-item .author {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        .testimonial-item .author .role {
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+        }
+
+        /* ========== FINAL CTA ========== */
+        .final-cta {
+            padding: var(--section-padding);
+            background: var(--charcoal);
+            position: relative;
+            overflow: hidden;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+        }
+        .final-cta-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .final-cta-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.2;
+        }
+        .final-cta-bg .overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0.7) 100%);
+        }
+        .final-cta .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 820px;
+        }
+        .final-cta .section-title {
+            font-size: clamp(2.8rem, 8vw, 5.2rem);
+        }
+        .final-cta .section-sub {
+            margin: 16px auto 0;
+            max-width: 560px;
+        }
+        .final-cta .cta-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 32px;
+        }
+
+        /* ========== CONTACT ========== */
+        .contact {
+            padding: var(--section-padding);
+            background: var(--black);
+        }
+        .contact .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .contact-info .ci-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .contact-info .ci-item .icon {
+            font-size: 1.2rem;
+            color: var(--orange);
+            width: 28px;
+            opacity: 0.6;
+        }
+        .contact-info .ci-item .text {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+        }
+        .contact-info .ci-item .text strong {
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .contact-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--charcoal);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--white);
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            transition: var(--transition-fast);
+            border-radius: 0;
+            outline: none;
+        }
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            border-color: var(--orange);
+            background: rgba(217, 122, 58, 0.04);
+        }
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 300;
+        }
+        .contact-form select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.3)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            cursor: pointer;
+        }
+        .contact-form select option {
+            background: var(--charcoal);
+            color: var(--white);
+        }
+        .contact-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            padding: 60px 0 30px;
+            background: var(--charcoal);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .footer .container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        .footer-brand .logo {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .footer-brand .logo span {
+            color: var(--orange);
+        }
+        .footer-brand .tagline {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 300;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+        }
+        .footer-brand p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.4);
+            max-width: 300px;
+            margin-top: 12px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+        .footer-col h5 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .footer-col a {
+            display: block;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.3);
+            padding: 4px 0;
+            transition: var(--transition-fast);
+            font-weight: 300;
+        }
+        .footer-col a:hover {
+            color: var(--white);
+            padding-left: 6px;
+        }
+        .footer-social {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+        }
+        .footer-social a {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.2);
+            transition: var(--transition-fast);
+            padding: 4px;
+        }
+        .footer-social a:hover {
+            color: var(--orange);
+            transform: translateY(-2px);
+        }
+        .footer-bottom {
+            grid-column: 1 / -1;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 24px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.15);
+            font-weight: 300;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        /* ========== WHATSAPP FLOATING ========== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #25D366;
+            color: #fff;
+            padding: 12px 18px 12px 14px;
+            border-radius: 50px;
+            box-shadow: 0 8px 32px rgba(37, 211, 102, 0.35);
+            transition: var(--transition-fast);
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border: none;
+            font-family: var(--font-sans);
+            text-decoration: none;
+            animation: waPulse 3s ease-in-out infinite;
+        }
+        .whatsapp-float i {
+            font-size: 1.6rem;
+            margin-right: 2px;
+        }
+        .whatsapp-float .tooltip {
+            font-size: 0.8rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+        @keyframes waPulse {
+            0%,
+            100% {
+                box-shadow: 0 8px 32px rgba(37, 211, 102, 0.35);
+            }
+            50% {
+                box-shadow: 0 8px 48px rgba(37, 211, 102, 0.55);
+            }
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.04) translateY(-2px);
+            box-shadow: 0 12px 48px rgba(37, 211, 102, 0.5);
+        }
+
+        /* ========== SCROLL REVEAL ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.94);
+            transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1200px) {
+            .hero-project-card {
+                right: 4%;
+                width: 240px;
+            }
+            .hero-wireframe {
+                width: 200px;
+                height: 280px;
+                right: 4%;
+                top: 12%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                padding: 0 24px;
+            }
+            .navbar {
+                padding: 16px 24px;
+            }
+            .navbar.scrolled {
+                padding: 10px 24px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .about .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .about-image img {
+                height: 320px;
+            }
+            .services-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-auto-rows: 220px;
+            }
+            .project-item.wide {
+                grid-column: span 1;
+            }
+            .project-item.tall {
+                grid-row: span 1;
+            }
+            .blueprint .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .blueprint-visual {
+                min-height: 320px;
+            }
+            .testimonials .container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .contact .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .footer .container {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+            .material-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .material-grid .mat-item:nth-child(1) {
+                grid-row: span 1;
+            }
+            .material-grid .mat-item:nth-child(4) {
+                grid-column: span 1;
+            }
+            .hero-project-card {
+                position: relative;
+                bottom: auto;
+                right: auto;
+                width: 100%;
+                max-width: 320px;
+                margin-top: 30px;
+                animation: none;
+            }
+            .hero-content {
+                padding: 0;
+            }
+            .hero-content h1 {
+                font-size: clamp(2.6rem, 8vw, 4.2rem);
+            }
+            .hero-wireframe {
+                display: none;
+            }
+            .hero-measurements {
+                display: none;
+            }
+            .hero {
+                flex-direction: column;
+                padding: 100px 0 60px;
+            }
+            .hero .container {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .hero-project-card .card-image {
+                height: 120px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 16px;
+            }
+            .navbar {
+                padding: 12px 16px;
+            }
+            .navbar.scrolled {
+                padding: 8px 16px;
+            }
+            .navbar .logo {
+                font-size: 1.2rem;
+            }
+            .navbar.scrolled .logo {
+                font-size: 1rem;
+            }
+            .hero-content h1 {
+                font-size: clamp(2.2rem, 12vw, 3.2rem);
+            }
+            .hero-content p {
+                font-size: 1rem;
+            }
+            .hero-content .trust {
+                flex-wrap: wrap;
+                gap: 12px;
+                font-size: 0.7rem;
+            }
+            .hero-project-card {
+                max-width: 100%;
+            }
+            .hero-project-card .card-image {
+                height: 100px;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 200px;
+            }
+            .project-item.wide {
+                grid-column: span 1;
+            }
+            .about-stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .about-stats .stat .number {
+                font-size: 2rem;
+            }
+            .contact-form .form-row {
+                grid-template-columns: 1fr;
+            }
+            .footer .container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .whatsapp-float {
+                padding: 10px 14px 10px 12px;
+                font-size: 0.8rem;
+                bottom: 16px;
+                right: 16px;
+            }
+            .whatsapp-float i {
+                font-size: 1.3rem;
+            }
+            .whatsapp-float .tooltip {
+                display: none;
+            }
+            .section-title {
+                font-size: clamp(1.8rem, 6vw, 2.6rem);
+            }
+            .blueprint-visual .building-container {
+                max-width: 220px;
+                height: 260px;
+            }
+            .blueprint-labels {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px 16px;
+            }
+            .blueprint-labels .bl-item {
+                font-size: 0.7rem;
+            }
+            .process-step {
+                flex: 0 0 200px;
+                padding-right: 20px;
+            }
+            .process-step h4 {
+                font-size: 1.2rem;
+            }
+            .process-step .step-num {
+                font-size: 3rem;
+            }
+            .material-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .final-cta .cta-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+            .machinery-content {
+                padding: 0 16px;
+            }
+            .hero-measurements {
+                display: none !important;
+            }
+            .hero-lines .line {
+                display: none;
+            }
+            .hero-wireframe {
+                display: none !important;
+            }
+            .hero .container {
+                padding: 0 16px;
+            }
+            .hero-content .cta-group {
+                flex-direction: column;
+                width: 100%;
+            }
+            .hero-content .cta-group .btn-primary,
+            .hero-content .cta-group .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+            .blueprint-visual .floor .label {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <a href="#" class="logo">AXION<span>BUILD</span></a>
+
+        <ul class="nav-links">
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+        </ul>
+
+        <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button" tabindex="0">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <a href="#projects">Projects</a>
+        <a href="#services">Services</a>
+        <a href="#process">Process</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="mobile-cta">Get a Quote</a>
+    </div>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1600&h=1000&fit=crop&q=80" alt="Modern construction site with crane and building structure" loading="eager" />
+            <div class="overlay"></div>
+            <div class="light-sweep"></div>
+        </div>
+
+        <div class="hero-grid"></div>
+
+        <!-- Animated lines -->
+        <div class="hero-lines">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+
+        <!-- Technical measurements -->
+        <div class="hero-measurements m1">⌀ 24.6M · 32.8°</div>
+        <div class="hero-measurements m2">± 0.02MM · 450 T</div>
+        <div class="hero-measurements m3">ELEV. 184.2M · AZIMUTH 276°</div>
+
+        <!-- Floating wireframe -->
+        <div class="hero-wireframe" aria-hidden="true">
+            <svg viewBox="0 0 280 380" xmlns="http://www.w3.org/2000/svg">
+                <rect x="20" y="20" width="240" height="340" rx="1" />
+                <line x1="20" y1="60" x2="260" y2="60" />
+                <line x1="20" y1="100" x2="260" y2="100" />
+                <line x1="20" y1="140" x2="260" y2="140" />
+                <line x1="20" y1="180" x2="260" y2="180" />
+                <line x1="20" y1="220" x2="260" y2="220" />
+                <line x1="20" y1="260" x2="260" y2="260" />
+                <line x1="20" y1="300" x2="260" y2="300" />
+                <line x1="20" y1="340" x2="260" y2="340" />
+                <line x1="60" y1="20" x2="60" y2="360" />
+                <line x1="100" y1="20" x2="100" y2="360" />
+                <line x1="140" y1="20" x2="140" y2="360" />
+                <line x1="180" y1="20" x2="180" y2="360" />
+                <line x1="220" y1="20" x2="220" y2="360" />
+                <rect x="40" y="40" width="40" height="40" stroke-width="0.3" />
+                <rect x="200" y="40" width="40" height="40" stroke-width="0.3" />
+                <rect x="40" y="280" width="40" height="40" stroke-width="0.3" />
+                <rect x="200" y="280" width="40" height="40" stroke-width="0.3" />
+                <circle cx="140" cy="190" r="12" stroke-width="0.5" />
+                <line x1="140" y1="130" x2="140" y2="250" stroke-width="0.3" stroke-dasharray="2 4" />
+                <line x1="90" y1="190" x2="190" y2="190" stroke-width="0.3" stroke-dasharray="2 4" />
+            </svg>
+        </div>
+
+        <div class="container" style="position:relative;z-index:5;width:100%;">
+            <div class="hero-content">
+                <div class="badge">Engineering &amp; Construction</div>
+                <h1>
+                    BUILDING
+                    <span class="highlight">TOMORROW.</span>
+                </h1>
+                <p>Construction, engineering and architecture delivered with precision from concept to completion.</p>
+                <div class="cta-group">
+                    <a href="#contact" class="btn-primary">START A PROJECT <i class="fas fa-arrow-right"></i></a>
+                    <a href="#projects" class="btn-secondary">EXPLORE OUR WORK <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="trust">
+                    <span>25+ YEARS</span>
+                    <span>180+ PROJECTS</span>
+                    <span>12 CITIES</span>
+                </div>
+            </div>
+
+            <!-- Floating Project Card -->
+            <div class="hero-project-card" id="projectCard">
+                <img class="card-image" id="cardImage" src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=260&fit=crop&q=80" alt="Project preview" loading="lazy" />
+                <div class="card-label" id="cardLabel">PROJECT 01</div>
+                <div class="card-title" id="cardTitle">RIVERSIDE TOWER</div>
+                <div class="card-type" id="cardType">Commercial Development</div>
+                <div class="card-progress">
+                    <span class="bar"><span class="fill"></span></span>
+                    <span class="perc">72%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ABOUT / INTRO ========== -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content reveal">
+                <span class="section-tag">About Axion</span>
+                <h2 class="section-title">
+                    WE DON'T JUST BUILD.<br />
+                    <span class="highlight">WE ENGINEER THE FUTURE.</span>
+                </h2>
+                <p class="section-sub" style="margin-top:20px;">
+                    Axion Build combines architecture, engineering and construction under one roof.
+                    We deliver projects that define skylines and create lasting value for communities.
+                </p>
+                <div class="about-stats">
+                    <div class="stat">
+                        <div class="number"><span class="counter" data-target="25">0</span><span class="suffix">+</span></div>
+                        <div class="label">Years Experience</div>
+                    </div>
+                    <div class="stat">
+                        <div class="number"><span class="counter" data-target="180">0</span><span class="suffix">+</span></div>
+                        <div class="label">Projects Delivered</div>
+                    </div>
+                    <div class="stat">
+                        <div class="number"><span class="counter" data-target="12">0</span></div>
+                        <div class="label">Cities</div>
+                    </div>
+                    <div class="stat">
+                        <div class="number"><span class="counter" data-target="98">0</span><span class="suffix">%</span></div>
+                        <div class="label">On-Time Delivery</div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image reveal-right">
+                <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&h=600&fit=crop&q=80" alt="Modern architectural design and engineering" loading="lazy" />
+                <div class="accent-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SERVICES ========== -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">What We Do</span>
+                <h2 class="section-title">
+                    <span class="highlight">Excellence</span> in Every<br />Discipline
+                </h2>
+                <p class="section-sub">Full-service construction and engineering from ground up.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card reveal" style="transition-delay:0.05s;">
+                    <img class="card-bg-img" src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=400&h=400&fit=crop&q=80" alt="" aria-hidden="true" />
+                    <div class="number">01</div>
+                    <div class="icon"><i class="fas fa-building"></i></div>
+                    <h3>Commercial Construction</h3>
+                    <p>Office towers, retail centers, and mixed-use developments built for the future.</p>
+                    <div class="arrow">Learn More <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="service-card reveal" style="transition-delay:0.10s;">
+                    <img class="card-bg-img" src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=400&h=400&fit=crop&q=80" alt="" aria-hidden="true" />
+                    <div class="number">02</div>
+                    <div class="icon"><i class="fas fa-home"></i></div>
+                    <h3>Luxury Residential</h3>
+                    <p>Bespoke homes and residential towers with uncompromising quality and design.</p>
+                    <div class="arrow">Learn More <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="service-card reveal" style="transition-delay:0.15s;">
+                    <img class="card-bg-img" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=400&h=400&fit=crop&q=80" alt="" aria-hidden="true" />
+                    <div class="number">03</div>
+                    <div class="icon"><i class="fas fa-drafting-compass"></i></div>
+                    <h3>Architecture &amp; Design</h3>
+                    <p>Innovative architectural solutions that balance form, function and sustainability.</p>
+                    <div class="arrow">Learn More <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="service-card reveal" style="transition-delay:0.20s;">
+                    <img class="card-bg-img" src="https://images.unsplash.com/photo-1574480465623-ccd4e41de519?w=400&h=400&fit=crop&q=80" alt="" aria-hidden="true" />
+                    <div class="number">04</div>
+                    <div class="icon"><i class="fas fa-ruler-combined"></i></div>
+                    <h3>Civil Engineering</h3>
+                    <p>Infrastructure, earthworks and structural engineering with precision at scale.</p>
+                    <div class="arrow">Learn More <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="service-card reveal" style="transition-delay:0.25s;">
+                    <img class="card-bg-img" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=400&fit=crop&q=80" alt="" aria-hidden="true" />
+                    <div class="number">05</div>
+                    <div class="icon"><i class="fas fa-road"></i></div>
+                    <h3>Infrastructure</h3>
+                    <p>Bridges, highways, utilities and public works that connect and empower.</p>
+                    <div class="arrow">Learn More <i class="fas fa-arrow-right"></i></div>
+                </div>
+
+                <div class="service-card reveal" style="transition-delay:0.30s;">
+                    <img class="card-bg-img" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=400&h=400&fit=crop&q=80" alt="" aria-hidden="true" />
+                    <div class="number">06</div>
+                    <div class="icon"><i class="fas fa-hammer"></i></div>
+                    <h3>Renovation &amp; Development</h3>
+                    <p>Adaptive reuse, heritage restoration and redevelopment with modern vision.</p>
+                    <div class="arrow">Learn More <i class="fas fa-arrow-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PROJECT SHOWCASE ========== -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Selected Projects</span>
+                <h2 class="section-title">
+                    <span class="highlight">Iconic</span> Work,<br />Delivered
+                </h2>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-item tall reveal" style="transition-delay:0.05s;">
+                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=800&fit=crop&q=80" alt="Riverside Tower commercial development" loading="lazy" />
+                    <div class="overlay">
+                        <span class="tag">Commercial</span>
+                        <h4>RIVERSIDE TOWER</h4>
+                        <p>Commercial Development</p>
+                        <span class="arrow-icon"><i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+                <div class="project-item reveal" style="transition-delay:0.10s;">
+                    <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=400&h=400&fit=crop&q=80" alt="Nova Residences luxury residential" loading="lazy" />
+                    <div class="overlay">
+                        <span class="tag">Residential</span>
+                        <h4>NOVA RESIDENCES</h4>
+                        <p>Luxury Residential</p>
+                        <span class="arrow-icon"><i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+                <div class="project-item reveal" style="transition-delay:0.15s;">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=400&fit=crop&q=80" alt="Axis Business Park corporate development" loading="lazy" />
+                    <div class="overlay">
+                        <span class="tag">Corporate</span>
+                        <h4>AXIS BUSINESS PARK</h4>
+                        <p>Corporate Development</p>
+                        <span class="arrow-icon"><i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+
+                <div class="project-item wide reveal" style="transition-delay:0.20s;">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=400&fit=crop&q=80" alt="The Grand Courtyard mixed-use development" loading="lazy" />
+                    <div class="overlay">
+                        <span class="tag">Mixed-Use</span>
+                        <h4>THE GRAND COURTYARD</h4>
+                        <p>Mixed-Use Development</p>
+                        <span class="arrow-icon"><i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 3D ARCHITECTURE ========== -->
+    <section class="blueprint" id="blueprint">
+        <div class="container">
+            <div class="blueprint-content reveal">
+                <span class="section-tag">Innovation</span>
+                <h2 class="section-title">
+                    FROM BLUEPRINT<br />
+                    <span class="highlight">TO REALITY.</span>
+                </h2>
+                <p class="section-sub">
+                    Every project begins with a vision. We bring it to life with precision engineering
+                    and world-class execution.
+                </p>
+                <div class="blueprint-labels">
+                    <div class="bl-item"><span class="dot"></span> STRUCTURE</div>
+                    <div class="bl-item"><span class="dot"></span> MATERIAL</div>
+                    <div class="bl-item"><span class="dot"></span> ENGINEERING</div>
+                    <div class="bl-item"><span class="dot"></span> EXECUTION</div>
+                </div>
+            </div>
+
+            <div class="blueprint-visual reveal-right">
+                <div class="building-container" id="buildingContainer">
+                    <div class="floor"><div class="glass"></div><span class="label">Level 6</span></div>
+                    <div class="floor"><div class="glass"></div><span class="label">Level 5</span></div>
+                    <div class="floor"><div class="glass"></div><span class="label">Level 4</span></div>
+                    <div class="floor"><div class="glass"></div><span class="label">Level 3</span></div>
+                    <div class="floor"><div class="glass"></div><span class="label">Level 2</span></div>
+                    <div class="floor"><div class="glass"></div><span class="label">Level 1</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PROCESS ========== -->
+    <section class="process" id="process">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Our Process</span>
+                <h2 class="section-title">
+                    From Vision to<br /><span class="highlight">Completion</span>
+                </h2>
+            </div>
+            <div class="process-track" id="processTrack">
+                <div class="process-step active" data-step="0">
+                    <div class="step-num">01</div>
+                    <div class="step-line"></div>
+                    <h4>DISCOVER</h4>
+                    <p>We listen, analyze and understand your vision, site and goals.</p>
+                </div>
+                <div class="process-step" data-step="1">
+                    <div class="step-num">02</div>
+                    <div class="step-line"></div>
+                    <h4>DESIGN</h4>
+                    <p>Architectural and engineering concepts that inspire and perform.</p>
+                </div>
+                <div class="process-step" data-step="2">
+                    <div class="step-num">03</div>
+                    <div class="step-line"></div>
+                    <h4>ENGINEER</h4>
+                    <p>Structural, MEP and civil engineering with precision at every scale.</p>
+                </div>
+                <div class="process-step" data-step="3">
+                    <div class="step-num">04</div>
+                    <div class="step-line"></div>
+                    <h4>BUILD</h4>
+                    <p>Construction delivered with quality, safety and on-time performance.</p>
+                </div>
+                <div class="process-step" data-step="4">
+                    <div class="step-num">05</div>
+                    <div class="step-line"></div>
+                    <h4>DELIVER</h4>
+                    <p>Handover with pride, followed by ongoing support and partnership.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== MATERIAL / QUALITY ========== -->
+    <section class="material" id="material">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-tag">Quality</span>
+                <h2 class="section-title">
+                    PRECISION IN <span class="highlight">EVERY DETAIL.</span>
+                </h2>
+                <p class="section-sub">We source the finest materials and employ the most skilled craftsmen.</p>
+            </div>
+            <div class="material-grid">
+                <div class="mat-item reveal-scale" style="transition-delay:0.05s;">
+                    <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=400&h=400&fit=crop&q=80" alt="Concrete texture" loading="lazy" />
+                    <span class="mat-label">Concrete</span>
+                </div>
+                <div class="mat-item reveal-scale" style="transition-delay:0.10s;">
+                    <img src="https://images.unsplash.com/photo-1544002436-b3f1a8f05b09?w=400&h=400&fit=crop&q=80" alt="Steel structure" loading="lazy" />
+                    <span class="mat-label">Steel</span>
+                </div>
+                <div class="mat-item reveal-scale" style="transition-delay:0.15s;">
+                    <img src="https://images.unsplash.com/photo-1528629297340-d1d466945dc5?w=400&h=400&fit=crop&q=80" alt="Glass facade" loading="lazy" />
+                    <span class="mat-label">Glass</span>
+                </div>
+                <div class="mat-item reveal-scale" style="transition-delay:0.20s;">
+                    <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&h=400&fit=crop&q=80" alt="Architectural detail" loading="lazy" />
+                    <span class="mat-label">Detail</span>
+                </div>
+                <div class="mat-item reveal-scale" style="transition-delay:0.25s;">
+                    <img src="https://images.unsplash.com/photo-1574480465623-ccd4e41de519?w=400&h=400&fit=crop&q=80" alt="Construction worker" loading="lazy" />
+                    <span class="mat-label">Craft</span>
+                </div>
+                <div class="mat-item reveal-scale" style="transition-delay:0.30s;">
+                    <img src="https://images.unsplash.com/photo-1581092335871-4a2a7b2b8f0d?w=400&h=400&fit=crop&q=80" alt="Heavy machinery" loading="lazy" />
+                    <span class="mat-label">Machinery</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== MACHINERY ========== -->
+    <section class="machinery" id="machinery">
+        <div class="machinery-bg">
+            <img src="https://images.unsplash.com/photo-1574480465623-ccd4e41de519?w=1600&h=900&fit=crop&q=80" alt="Heavy construction machinery on site" loading="lazy" />
+            <div class="overlay"></div>
+        </div>
+        <div class="machinery-content">
+            <span class="section-tag">Capability</span>
+            <h2 class="section-title">
+                BUILT FOR<br />
+                <span class="highlight">THE BIG JOBS.</span>
+            </h2>
+            <p class="section-sub">
+                From earthworks to sky-high structures, our fleet and team deliver at scale.
+            </p>
+            <a href="#contact" class="btn-primary">Discuss Your Project <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS ========== -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="testimonial-item reveal" style="transition-delay:0.05s;">
+                <div class="quote">
+                    Axion Build transformed a complicated development into a project delivered with clarity and precision.
+                </div>
+                <div class="author">Michael Carter <span class="role">— Development Director, Carter Group</span></div>
+            </div>
+            <div class="testimonial-item reveal" style="transition-delay:0.15s;">
+                <div class="quote">
+                    Their attention to detail and ability to solve complex engineering challenges is world-class.
+                </div>
+                <div class="author">Sarah Kensington <span class="role">— Principal Architect, Kensington Studio</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FINAL CTA ========== -->
+    <section class="final-cta" id="final-cta">
+        <div class="final-cta-bg">
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&h=900&fit=crop&q=80" alt="Architectural construction site" loading="lazy" />
+            <div class="overlay"></div>
+        </div>
+        <div class="container">
+            <span class="section-tag">Let's Build</span>
+            <h2 class="section-title">
+                LET'S BUILD<br />
+                <span class="highlight">SOMETHING SIGNIFICANT.</span>
+            </h2>
+            <p class="section-sub">
+                Tell us what you're planning. We'll help turn the idea into a buildable reality.
+            </p>
+            <div class="cta-group">
+                <a href="#contact" class="btn-primary">START A PROJECT <i class="fas fa-arrow-right"></i></a>
+                <a href="#" class="btn-secondary" id="whatsappCTA">WHATSAPP US <i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-info reveal">
+                <span class="section-tag">Get in Touch</span>
+                <h2 class="section-title">
+                    Let's <span class="highlight">Connect.</span>
+                </h2>
+                <p style="color:rgba(255,255,255,0.5);font-weight:300;margin-bottom:10px;line-height:1.7;">
+                    Ready to start your project? Reach out and we'll respond within 24 hours.
+                </p>
+
+                <div class="ci-item">
+                    <span class="icon"><i class="fas fa-envelope"></i></span>
+                    <div class="text"><strong>Email</strong><br />hello@axionbuild.com</div>
+                </div>
+                <div class="ci-item">
+                    <span class="icon"><i class="fas fa-phone-alt"></i></span>
+                    <div class="text"><strong>Phone</strong><br />+1 (800) 555‑0199</div>
+                </div>
+                <div class="ci-item">
+                    <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
+                    <div class="text"><strong>Office</strong><br />1200 Skyline Drive, Suite 400<br />Metropolis, NY 10001</div>
+                </div>
+            </div>
+
+            <form class="contact-form reveal-right" id="contactForm" novalidate>
+                <div class="form-row">
+                    <input type="text" placeholder="Full Name" required />
+                    <input type="text" placeholder="Company" />
+                </div>
+                <div class="form-row">
+                    <input type="email" placeholder="Email Address" required />
+                    <input type="tel" placeholder="Phone Number" />
+                </div>
+                <div class="form-row">
+                    <select required>
+                        <option value="" disabled selected>Project Type</option>
+                        <option>Commercial</option>
+                        <option>Residential</option>
+                        <option>Infrastructure</option>
+                        <option>Renovation</option>
+                        <option>Architecture &amp; Design</option>
+                        <option>Other</option>
+                    </select>
+                    <select>
+                        <option value="" disabled selected>Estimated Budget</option>
+                        <option>$100k – $500k</option>
+                        <option>$500k – $1M</option>
+                        <option>$1M – $5M</option>
+                        <option>$5M – $20M</option>
+                        <option>$20M+</option>
+                    </select>
+                </div>
+                <textarea placeholder="Tell us about your project…" required></textarea>
+                <button type="submit" class="btn-primary" style="align-self:flex-start;">
+                    REQUEST A CONSULTATION <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">
+                <div class="logo">AXION<span>BUILD</span></div>
+                <div class="tagline">We Build What Lasts.</div>
+                <p>Construction, engineering and architecture delivered with precision from concept to completion.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h5>Explore</h5>
+                <a href="#projects">Projects</a>
+                <a href="#services">Services</a>
+                <a href="#process">Process</a>
+                <a href="#about">About</a>
+            </div>
+
+            <div class="footer-col">
+                <h5>Support</h5>
+                <a href="#contact">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Careers</a>
+            </div>
+
+            <div class="footer-col">
+                <h5>Connect</h5>
+                <a href="#"><i class="fas fa-phone-alt" style="margin-right:6px;font-size:0.7rem;"></i> +1 (800) 555‑0199</a>
+                <a href="#"><i class="fas fa-envelope" style="margin-right:6px;font-size:0.7rem;"></i> hello@axionbuild.com</a>
+                <a href="#"><i class="fas fa-map-marker-alt" style="margin-right:6px;font-size:0.7rem;"></i> New York, NY</a>
+            </div>
+
+            <div class="footer-bottom">
+                <span>&copy; 2026 AXION BUILD. All rights reserved.</span>
+                <span>Built with precision. Engineered for the future.</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== WHATSAPP FLOATING ========== -->
+    <a href="https://wa.me/18005550199?text=Hello%20Axion%20Build%2C%20I'd%20like%20to%20discuss%20a%20project." class="whatsapp-float" id="whatsappFloat" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+        <span class="tooltip">Chat with our team</span>
+    </a>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // ========== NAVIGATION ==========
+            const navbar = document.getElementById('navbar');
+            const hamburger = document.getElementById('hamburger');
+            const mobileNav = document.getElementById('mobileNav');
+
+            let lastScroll = 0;
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+                if (currentScroll > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                lastScroll = currentScroll;
+            });
+
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mobileNav.classList.toggle('open');
+                document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+            });
+
+            // Close mobile nav on link click
+            mobileNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    mobileNav.classList.remove('open');
+                    document.body.style.overflow = '';
+                });
+            });
+
+            // ========== HERO PROJECT CAROUSEL ==========
+            const projects = [{
+                image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400&h=260&fit=crop&q=80',
+                label: 'PROJECT 01',
+                title: 'RIVERSIDE TOWER',
+                type: 'Commercial Development'
+            }, {
+                image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=400&h=260&fit=crop&q=80',
+                label: 'PROJECT 02',
+                title: 'NOVA RESIDENCES',
+                type: 'Luxury Residential'
+            }, {
+                image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=260&fit=crop&q=80',
+                label: 'PROJECT 03',
+                title: 'AXIS BUSINESS PARK',
+                type: 'Corporate Development'
+            }];
+
+            let projectIndex = 0;
+            const cardImage = document.getElementById('cardImage');
+            const cardLabel = document.getElementById('cardLabel');
+            const cardTitle = document.getElementById('cardTitle');
+            const cardType = document.getElementById('cardType');
+
+            function rotateProject() {
+                // Fade out
+                cardImage.classList.add('fade-out');
+
+                setTimeout(() => {
+                    projectIndex = (projectIndex + 1) % projects.length;
+                    const p = projects[projectIndex];
+                    cardImage.src = p.image;
+                    cardLabel.textContent = p.label;
+                    cardTitle.textContent = p.title;
+                    cardType.textContent = p.type;
+
+                    // Fade in
+                    setTimeout(() => {
+                        cardImage.classList.remove('fade-out');
+                    }, 80);
+                }, 400);
+            }
+
+            // Rotate every 6 seconds
+            setInterval(rotateProject, 6000);
+
+            // ========== SCROLL REVEAL (Intersection Observer) ==========
+            const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.12,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            revealEls.forEach(el => revealObserver.observe(el));
+
+            // ========== NUMBER COUNTERS ==========
+            const counters = document.querySelectorAll('.counter');
+            let countersAnimated = false;
+
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !countersAnimated) {
+                        countersAnimated = true;
+                        counters.forEach(counter => {
+                            const target = parseInt(counter.getAttribute('data-target'));
+                            const duration = 2000;
+                            const startTime = performance.now();
+
+                            function updateCounter(currentTime) {
+                                const elapsed = currentTime - startTime;
+                                const progress = Math.min(elapsed / duration, 1);
+                                const eased = 1 - Math.pow(1 - progress, 3);
+                                const current = Math.floor(eased * target);
+                                counter.textContent = current;
+                                if (progress < 1) {
+                                    requestAnimationFrame(updateCounter);
+                                } else {
+                                    counter.textContent = target;
+                                }
+                            }
+                            requestAnimationFrame(updateCounter);
+                        });
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            counters.forEach(c => counterObserver.observe(c));
+
+            // ========== PROCESS TIMELINE (scroll activation) ==========
+            const processSteps = document.querySelectorAll('.process-step');
+            const processTrack = document.getElementById('processTrack');
+
+            const processObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const index = parseInt(entry.target.getAttribute('data-step'));
+                        processSteps.forEach((step, i) => {
+                            if (i <= index) {
+                                step.classList.add('active');
+                            } else {
+                                step.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.35 });
+
+            processSteps.forEach(step => processObserver.observe(step));
+
+            // ========== 3D BUILDING CONSTRUCTION ANIMATION ==========
+            const buildingContainer = document.getElementById('buildingContainer');
+            const floors = buildingContainer.querySelectorAll('.floor');
+
+            const buildingObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        floors.forEach((floor, i) => {
+                            floor.style.opacity = '0';
+                            floor.style.transform = 'translateX(-50%) scale(0.94)';
+                            setTimeout(() => {
+                                floor.style.opacity = '1';
+                                floor.style.transform = 'translateX(-50%) scale(1)';
+                            }, 120 + i * 160);
+                        });
+                    } else {
+                        floors.forEach(floor => {
+                            floor.style.opacity = '0.15';
+                            floor.style.transform = 'translateX(-50%) scale(0.94)';
+                        });
+                    }
+                });
+            }, { threshold: 0.25 });
+
+            buildingObserver.observe(buildingContainer);
+
+            // ========== CONTACT FORM ==========
+            const contactForm = document.getElementById('contactForm');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Simple success feedback
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = 'THANK YOU <i class="fas fa-check"></i>';
+                btn.style.background = '#2a7a4a';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = '';
+                    this.reset();
+                }, 3000);
+            });
+
+            // ========== WHATSAPP CTA (footer + final) ==========
+            const whatsappCTA = document.getElementById('whatsappCTA');
+            const whatsappFloat = document.getElementById('whatsappFloat');
+
+            const waUrl = 'https://wa.me/18005550199?text=Hello%20Axion%20Build%2C%20I\'d%20like%20to%20discuss%20a%20project.';
+
+            whatsappCTA.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open(waUrl, '_blank');
+            });
+
+            // ========== SMOOTH SCROLL FOR NAV LINKS ==========
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        const offset = 80;
+                        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({ top, behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // ========== PARALLAX ON HERO IMAGE (mouse move) ==========
+            const hero = document.querySelector('.hero');
+            const heroImg = hero.querySelector('.hero-bg img');
+
+            hero.addEventListener('mousemove', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+                const moveX = (x - 0.5) * 12;
+                const moveY = (y - 0.5) * 8;
+                heroImg.style.transform = `scale(1.10) translate(${moveX}px, ${moveY}px)`;
+            });
+
+            hero.addEventListener('mouseleave', function() {
+                heroImg.style.transform = 'scale(1.05) translate(0, 0)';
+            });
+
+            // ========== MACHINERY PARALLAX ON SCROLL ==========
+            const machinery = document.querySelector('.machinery');
+            const machineryBg = machinery.querySelector('.machinery-bg img');
+
+            window.addEventListener('scroll', function() {
+                const rect = machinery.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                if (rect.top < viewportHeight && rect.bottom > 0) {
+                    const scrolled = (viewportHeight - rect.top) / (viewportHeight + rect.height);
+                    const offset = scrolled * 40 - 20;
+                    machineryBg.style.transform = `scale(1.12) translateY(${offset}px)`;
+                }
+            });
+
+            // ========== WHATSAPP TOOLTIP ON MOBILE ==========
+            if (window.innerWidth < 640) {
+                const tooltip = whatsappFloat.querySelector('.tooltip');
+                if (tooltip) tooltip.style.display = 'none';
+            }
+
+            console.log('🚧 AXION BUILD — We Build What Lasts.');
+        });
+    </script>
+
+</body>
+</html>
