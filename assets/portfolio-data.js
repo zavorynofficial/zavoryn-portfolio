@@ -14,7 +14,6 @@ window.ZAVORYN_PORTFOLIO = {
     {key:"letterheads", label:"Letterheads", folder:"assets/img/brand-designing/letterheads"},
     {key:"business-cards", label:"Business Cards", folder:"assets/img/brand-designing/business-cards"},
     {key:"stationery", label:"Stationery", folder:"assets/img/brand-designing/stationery"},
-    {key:"brand-guidelines", label:"Brand Guidelines", folder:"assets/img/brand-designing/brand-guidelines"}
   ],
   folders: { social:"assets/img/social-media-management", posts:"assets/img/post-designing", ai:"assets/img/ai-automation" }
 };
