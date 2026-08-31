@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
-<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#182126"/><stop offset="1" stop-color="#252933"/></linearGradient></defs>
-<rect width="1400" height="900" rx="42" fill="url(#g)"/><circle cx="1180" cy="140" r="220" fill="#d9ff55" opacity=".12"/><rect x="80" y="80" width="1240" height="740" rx="32" fill="none" stroke="#ffffff" opacity=".1"/>
-<text x="110" y="170" fill="#d9ff55" font-family="Arial" font-size="28" font-weight="700" letter-spacing="5">ZAVORYN / SAMPLE</text>
-<text x="110" y="430" fill="#fff" font-family="Arial" font-size="78" font-weight="700">Product Post</text>
-<text x="110" y="500" fill="#aeb3bd" font-family="Arial" font-size="34">Content design sample</text>
-<rect x="110" y="620" width="240" height="58" rx="29" fill="#d9ff55"/><text x="230" y="659" text-anchor="middle" fill="#101116" font-family="Arial" font-size="22" font-weight="700">VIEW WORK ↗</text>
-</svg>
