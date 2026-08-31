@@ -162,6 +162,12 @@ function mediaCard(file, label) {
   const imageUrl = file.download_url;
   const imageAlt = clean(file.name);
 
+  /* Set the same image as the card background */
+  element.style.setProperty(
+    "--media-card-bg",
+    `url("${imageUrl}")`
+  );
+
   element.innerHTML = `
     <button
       class="media-button"
@@ -169,62 +175,18 @@ function mediaCard(file, label) {
       aria-label="Open ${imageAlt}"
     >
 
-      <div
-        class="media-image"
-        style="
-          position:relative;
-          overflow:hidden;
-          isolation:isolate;
-        "
-      >
+      <div class="media-image">
 
-        <!-- ZOOMED BACKGROUND IMAGE -->
-        <div
-          class="media-image-background"
-          aria-hidden="true"
-          style="
-            position:absolute;
-            inset:-18%;
-            z-index:0;
-            background-image:url('${imageUrl}');
-            background-position:center;
-            background-repeat:no-repeat;
-            background-size:cover;
-            opacity:0.18;
-            filter:blur(16px);
-            transform:scale(1.08);
-            pointer-events:none;
-          "
-        ></div>
+        <div class="media-image-bg" aria-hidden="true"></div>
 
-        <!-- SUBTLE DARK/GLASS OVERLAY -->
-        <div
-          class="media-image-overlay"
-          aria-hidden="true"
-          style="
-            position:absolute;
-            inset:0;
-            z-index:1;
-            background:rgba(255,255,255,0.04);
-            pointer-events:none;
-          "
-        ></div>
+        <div class="media-image-overlay" aria-hidden="true"></div>
 
-        <!-- ORIGINAL IMAGE -->
         <img
           src="${imageUrl}"
           alt="${imageAlt}"
           loading="lazy"
           decoding="async"
-          style="
-            position:relative;
-            z-index:2;
-            display:block;
-            width:100%;
-            height:100%;
-            object-fit:contain;
-          "
-        />
+        >
 
       </div>
 
@@ -243,7 +205,6 @@ function mediaCard(file, label) {
 
   return element;
 }
-
 
 /* =========================================
    RENDER GALLERY
